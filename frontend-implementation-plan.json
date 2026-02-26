@@ -1,0 +1,24 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Rename 'Reasons Why I Love Her' to 'Reasons Why I Love You' in WhyILoveYou.tsx",
+  "requirements": [
+    {
+      "id": "REQ-91",
+      "summary": "Change the page title in WhyILoveYou.tsx from 'Reasons Why I Love Her' to 'Reasons Why I Love You', ensuring no other text, logic, animations, or content is modified",
+      "acceptanceCriteria": [
+        "The page title displayed in WhyILoveYou.tsx reads 'Reasons Why I Love You' (not 'Reasons Why I Love Her').",
+        "No other text, reasons, animations, card layout, or navigation logic is changed.",
+        "The subtitle '1 → ∞' remains unchanged.",
+        "All 10 reason cards and the cinematic post-10th-card sequence remain exactly as before."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/WhyILoveYou.tsx",
+          "operation": "modify",
+          "description": "Update the page title text from 'Reasons Why I Love Her' to 'Reasons Why I Love You'. Locate the title heading element and change only the title string. If the subtitle references 'her' in a way that should address 'you', update it as well. Do not modify any reason card content, animations, cinematic sequence logic, or navigation callbacks."
+        }
+      ]
+    }
+  ]
+}

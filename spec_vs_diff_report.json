@@ -1,0 +1,14 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-26T16:42:41.759Z",
+  "summary": "The diff shows that WhyILoveYou.tsx was modified to change the page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You', which is exactly what REQ-91 requires. The file summary confirms this change while noting all other content, animations, and logic remain unchanged. No other files related to this requirement were modified.",
+  "missing_requirements": [],
+  "hallucinated_features": [],
+  "confidence": 0.97,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/src/pages/WhyILoveYou.tsx",
+    "project_state.json"
+  ]
+}

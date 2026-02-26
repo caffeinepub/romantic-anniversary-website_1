@@ -1,0 +1,938 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 37,
+  "summary": "Multi-page romantic anniversary website for Sid & Krisha, celebrating a relationship starting 10.03.2025. Single HTML file with cinematic, intimate, emotionally mature design — soft lavender-to-blush-pink gradients, floating light particles, elegant serif typography, smooth emotional transitions. Features: scroll-based timeline (March–March 10 one year), memory gallery with floating hearts and lightbox, childhood/teenage/girl-I-love journey pages with exact personal text, interactive postcard-style love letter envelope addressed 'To My Krisha', heart-card reasons page with infinite-heart ending, couple quiz with glow UI, countdown to March 10 2027, and final page with 'Will you be my forever?' YES/NO interaction where NO moves away and YES triggers heart explosion popup.",
+  "architectural_notes": [
+    "Single HTML file with JS-driven page navigation (show/hide sections), no server required",
+    "Smooth fade/slide CSS transitions between all pages",
+    "Glassmorphism card style with soft pink and lavender gradients throughout",
+    "Floating hearts background animation on all pages",
+    "Dark mode toggle and music play/pause toggle persistent across pages",
+    "All text areas editable and all images easily replaceable via placeholder src attributes",
+    "Timeline is scroll-based (not button-navigated), with per-month fade-in on scroll and floating heart transitions between months",
+    "Love Letter page uses interactive postcard-style envelope animation (opens like physical postcard to reveal letter)",
+    "Final page has YES/NO interaction where NO button moves away on hover/click; YES triggers heart explosion popup"
+  ],
+  "known_issues": [
+    "White page / blank screen on load — likely caused by bundle size, runtime JS error, or broken component import crashing the app before render",
+    "HerJourney.tsx Stage 2 (Teenage) and Stage 3 (The Girl I Love Now) photos have NOT been placed yet — user confirmed no photos were added previously for these stages",
+    "Gallery slot images (gallery-1.jpg through gallery-5.jpg) and HerJourney Stage 1 newborn photos (journey-newborn-1/2/3.jpg) are not displaying — may be missing asset files or incorrect path references in MemoriesGallery.tsx and HerJourney.tsx"
+  ],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-implement-a-global-app-shell-with-soft-pink-and-lavender-gradient-theme-glassmorphism-card-styling-premium-serif-sans-serif-typography-no-childish-fonts-subtle-floating-hearts-background-animation-smooth-fade-slide-transitions-between-all-pages-a-dark-mode-toggle-and-a-music-play-pause-toggle-all-pages-must-be-mobile-responsive-and-feel-like-chapters-in-an-emotional-digital-love-book",
+      "title": "Implement a global app shell with: soft pink and lavender gradient theme, glassmorphism card styling, premium serif/sans-serif typography (no childish fonts), subtle floating hearts background animation, smooth fade/slide transitions between all pages, a dark mode toggle, and a music play/pause toggle. All pages must be mobile responsive and feel like chapters in an emotional digital love book.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-1-lock-screen-full-screen-romantic-blurred-background-a-centered-password-input-field-correct-password-is-10032025-on-correct-entry-play-a-soft-unlock-animation-then-navigate-to-the-hero-page-invalid-password-attempts-should-show-a-gentle-shake-error-indication",
+      "title": "Build Page 1 – Lock Screen: full-screen romantic blurred background, a centered password input field, correct password is '10032025', on correct entry play a soft unlock animation then navigate to the Hero Page. Invalid password attempts should show a gentle shake/error indication.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-2-hero-page-full-screen-animated-gradient-background-a-typewriter-typing-text-animation-displaying-since-10-03-2025-my-world-changed-forever-subtext-one-year-one-love-infinite-memories-and-a-begin-our-story-button-that-navigates-to-the-timeline-overview-page",
+      "title": "Build Page 2 – Hero Page: full-screen animated gradient background, a typewriter/typing text animation displaying 'Since 10.03.2025… my world changed forever.', subtext 'One year. One love. Infinite memories.', and a 'Begin Our Story' button that navigates to the Timeline Overview page.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-3-timeline-overview-title-our-story-display-clickable-month-buttons-from-march-2025-through-the-current-month-each-month-button-opens-a-dedicated-month-page-with-the-month-title-one-large-placeholder-image-easily-replaceable-an-editable-paragraph-text-area-a-next-month-button-navigating-to-the-following-month-and-a-back-to-timeline-button-returning-to-the-overview",
+      "title": "Build Page 3 – Timeline Overview: title 'Our Story', display clickable month buttons from March 2025 through the current month. Each month button opens a dedicated Month Page with: the month title, one large placeholder image (easily replaceable), an editable paragraph text area, a 'Next Month' button navigating to the following month, and a 'Back to Timeline' button returning to the overview.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-4-our-memories-gallery-responsive-grid-layout-displaying-at-least-5-couple-picture-placeholders-each-with-a-caption-clicking-any-image-opens-a-lightbox-modal-showing-the-full-image-and-caption-a-next-chapter-button-at-the-bottom-navigates-to-the-next-page",
+      "title": "Build Page 4 – Our Memories Gallery: responsive grid layout displaying at least 5 couple picture placeholders, each with a caption. Clicking any image opens a lightbox modal showing the full image and caption. A 'Next Chapter' button at the bottom navigates to the next page.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-5-her-journey-the-girl-i-love-three-sequential-stages-presented-as-separate-slides-sub-pages-stage-1-newborn-3-image-placeholders-and-short-editable-text-stage-2-teenage-3-image-placeholders-and-editable-text-stage-3-the-girl-i-love-now-3-image-placeholders-and-editable-emotional-text-each-stage-has-a-next-stage-button-to-advance-the-final-stage-has-a-next-chapter-button-to-proceed-to-the-love-letter-page",
+      "title": "Build Page 5 – Her Journey ('The Girl I Love'): three sequential stages presented as separate slides/sub-pages. Stage 1 – 'Newborn': 3 image placeholders and short editable text. Stage 2 – 'Teenage': 3 image placeholders and editable text. Stage 3 – 'The Girl I Love Now': 3 image placeholders and editable emotional text. Each stage has a 'Next Stage' button to advance; the final stage has a 'Next Chapter' button to proceed to the Love Letter page.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-6-love-letter-page-displays-a-centered-open-my-heart-button-clicking-it-opens-a-modal-popup-containing-an-editable-love-letter-text-area-styled-with-a-soft-blurred-background-modal-can-be-closed-a-next-chapter-button-is-available-on-the-page",
+      "title": "Build Page 6 – Love Letter Page: displays a centered 'Open My Heart' button. Clicking it opens a modal popup containing an editable love letter text area, styled with a soft blurred background. Modal can be closed; a 'Next Chapter' button is available on the page.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-7-why-i-love-you-displays-a-list-of-at-least-20-romantic-reasons-editable-a-button-labeled-show-me-a-reason-or-similar-randomly-picks-and-highlights-one-reason-from-the-list-with-a-gentle-animation-a-next-chapter-button-navigates-to-the-couple-quiz-page",
+      "title": "Build Page 7 – Why I Love You: displays a list of at least 20 romantic reasons (editable). A button labeled 'Show Me a Reason' (or similar) randomly picks and highlights one reason from the list with a gentle animation. A 'Next Chapter' button navigates to the Couple Quiz page.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-8-couple-quiz-present-5-romantic-interactive-questions-one-at-a-time-after-each-answer-display-animated-feedback-with-a-romantic-response-message-after-all-5-questions-show-a-loving-result-screen-a-next-chapter-button-navigates-to-the-countdown-page",
+      "title": "Build Page 8 – Couple Quiz: present 5 romantic interactive questions one at a time. After each answer, display animated feedback with a romantic response message. After all 5 questions, show a loving result screen. A 'Next Chapter' button navigates to the Countdown page.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-9-countdown-page-displays-an-animated-countdown-timer-counting-down-to-10-march-2026-showing-days-hours-minutes-and-seconds-with-animated-number-transitions-and-a-soft-glow-effect-on-the-digits-a-next-chapter-button-navigates-to-the-final-page",
+      "title": "Build Page 9 – Countdown Page: displays an animated countdown timer counting down to 10 March 2026, showing days, hours, minutes, and seconds with animated number transitions and a soft glow effect on the digits. A 'Next Chapter' button navigates to the Final Page.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-page-10-final-page-displays-the-centered-text-and-i-would-choose-you-again-in-large-premium-typography-a-button-will-you-stay-forever-triggers-a-confetti-animation-across-the-screen-and-opens-a-romantic-popup-message-this-is-the-last-page-of-the-journey",
+      "title": "Build Page 10 – Final Page: displays the centered text 'And I would choose you again.' in large premium typography. A button 'Will You Stay Forever?' triggers a confetti animation across the screen and opens a romantic popup message. This is the last page of the journey.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-romantic-placeholder-images-for-the-gallery-page-4-month-timeline-pages-page-3-and-the-three-stages-of-her-journey-page-5-to-visually-represent-each-section-until-real-photos-are-added-use-soft-pink-lavender-and-warm-tones-consistent-with-the-app-theme",
+      "title": "Generate romantic placeholder images for the gallery (Page 4), month timeline pages (Page 3), and the three stages of 'Her Journey' (Page 5) to visually represent each section until real photos are added. Use soft pink, lavender, and warm tones consistent with the app theme.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-lock-screen-page-page-1-change-the-title-heading-text-from-our-secret-garden-to-built-from-my-heart",
+      "title": "On the Lock Screen page (Page 1), change the title/heading text from 'Our Secret Garden' to 'Built From My Heart'.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-small-heart-icon-above-the-main-heading-that-has-a-soft-pulse-animation-a-gentle-slow-scale-up-and-scale-down-effect-with-a-subtle-pink-rose-glow-the-animation-must-be-romantic-and-slow-paced-not-fast-or-bouncy",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a small heart icon above the main heading that has a soft pulse animation — a gentle, slow scale-up and scale-down effect with a subtle pink/rose glow. The animation must be romantic and slow-paced, not fast or bouncy.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-replace-or-supplement-the-existing-typewriter-heading-with-an-elegant-serif-heading-using-the-app-s-serif-font-e-g-playfair-display-or-cormorant-garamond-that-reads-10-03-2025-the-day-you-became-my-everything-displayed-centered-on-the-page",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), replace or supplement the existing typewriter heading with an elegant serif heading (using the app's serif font, e.g., Playfair Display or Cormorant Garamond) that reads: '10.03.2025… The day you became my everything.' displayed centered on the page.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-smaller-italic-subtext-below-the-serif-heading-that-reads-still-falling-for-you-every-single-day-styled-in-italic-softer-lighter-color-and-smaller-than-the-heading",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a smaller italic subtext below the serif heading that reads: 'Still falling for you. Every single day.' Styled in italic, softer/lighter color, and smaller than the heading.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-glowing-gradient-button-labeled-see-what-you-did-to-me-the-button-should-use-a-soft-pink-to-lavender-gradient-background-have-a-gentle-outer-glow-box-shadow-effect-and-navigate-to-the-next-chapter-timeline-overview-when-clicked-or-it-can-serve-the-same-navigation-role-as-the-existing-begin-our-story-button",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a glowing gradient button labeled 'See What You Did to Me'. The button should use a soft pink-to-lavender gradient background, have a gentle outer glow/box-shadow effect, and navigate to the next chapter (Timeline Overview) when clicked — or it can serve the same navigation role as the existing 'Begin Our Story' button.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-smooth-fade-in-animation-that-plays-on-page-load-all-content-heart-icon-heading-subtext-button-should-fade-in-gracefully-either-simultaneously-or-staggered-the-overall-design-of-the-page-must-follow-a-minimal-dreamy-emotionally-modern-romantic-aesthetic-with-soft-shadows-and-glassmorphism-card-effects",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a smooth fade-in animation that plays on page load. All content (heart icon, heading, subtext, button) should fade in gracefully, either simultaneously or staggered. The overall design of the page must follow a minimal, dreamy, emotionally modern romantic aesthetic with soft shadows and glassmorphism card effects.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-love-letter-page-loveletterpage-tsx-chapter-6-add-a-small-heart-icon-above-the-main-heading-content-area-with-the-same-soft-pulse-animation-described-for-the-hero-page-a-gentle-slow-scale-up-and-scale-down-effect-with-a-subtle-pink-glow",
+      "title": "On the Love Letter Page (LoveLetterPage.tsx, Chapter 6), add a small heart icon above the main heading/content area with the same soft pulse animation described for the Hero Page: a gentle slow scale-up and scale-down effect with a subtle pink glow.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-love-letter-page-loveletterpage-tsx-chapter-6-add-an-elegant-serif-heading-that-reads-10-03-2025-the-day-you-became-my-everything-centered-on-the-page-displayed-below-the-pulsing-heart-icon-and-above-the-existing-open-my-heart-button",
+      "title": "On the Love Letter Page (LoveLetterPage.tsx, Chapter 6), add an elegant serif heading that reads: '10.03.2025… The day you became my everything.' centered on the page, displayed below the pulsing heart icon and above the existing 'Open My Heart' button.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-love-letter-page-loveletterpage-tsx-chapter-6-add-a-smaller-italic-subtext-below-the-serif-heading-that-reads-still-falling-for-you-every-single-day-styled-in-italic-with-a-lighter-color-and-smaller-font-than-the-heading",
+      "title": "On the Love Letter Page (LoveLetterPage.tsx, Chapter 6), add a smaller italic subtext below the serif heading that reads: 'Still falling for you. Every single day.' Styled in italic with a lighter color and smaller font than the heading.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-love-letter-page-loveletterpage-tsx-chapter-6-replace-or-visually-upgrade-the-existing-open-my-heart-button-or-add-alongside-it-a-glowing-gradient-button-labeled-see-what-you-did-to-me-with-a-pink-to-lavender-gradient-and-a-soft-outer-glow-this-button-should-open-the-love-letter-modal-same-behavior-as-open-my-heart",
+      "title": "On the Love Letter Page (LoveLetterPage.tsx, Chapter 6), replace or visually upgrade the existing 'Open My Heart' button (or add alongside it) a glowing gradient button labeled 'See What You Did to Me' with a pink-to-lavender gradient and a soft outer glow. This button should open the love letter modal (same behavior as 'Open My Heart').",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-love-letter-page-loveletterpage-tsx-chapter-6-add-a-smooth-fade-in-animation-on-page-load-for-all-content-maintain-the-minimal-dreamy-modern-romantic-aesthetic-with-glassmorphism-card-effects-and-soft-shadows-consistent-with-the-rest-of-the-app",
+      "title": "On the Love Letter Page (LoveLetterPage.tsx, Chapter 6), add a smooth fade-in animation on page load for all content. Maintain the minimal, dreamy, modern romantic aesthetic with glassmorphism card effects and soft shadows consistent with the rest of the app.",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-the-page-shown-after-unlocking-add-a-small-heart-icon-above-the-main-heading-with-a-soft-pulse-animation-a-gentle-slow-scale-up-and-scale-down-effect-with-a-subtle-pink-rose-glow-the-animation-must-be-romantic-and-slow-paced-not-fast-or-bouncy",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2 — the page shown after unlocking), add a small heart icon above the main heading with a soft pulse animation: a gentle, slow scale-up and scale-down effect with a subtle pink/rose glow. The animation must be romantic and slow-paced, not fast or bouncy.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-an-elegant-serif-heading-centered-on-the-page-that-reads-10-03-2025-the-day-you-became-my-everything-use-the-app-s-serif-font-playfair-display-or-cormorant-garamond-this-heading-should-be-the-primary-visual-text-element-in-the-center-of-the-page",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add an elegant serif heading centered on the page that reads: '10.03.2025… The day you became my everything.' Use the app's serif font (Playfair Display or Cormorant Garamond). This heading should be the primary visual text element in the center of the page.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-smaller-italic-subtext-below-the-serif-heading-that-reads-still-falling-for-you-every-single-day-style-it-in-italic-with-a-softer-lighter-color-and-smaller-font-size-than-the-heading",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a smaller italic subtext below the serif heading that reads: 'Still falling for you. Every single day.' Style it in italic, with a softer/lighter color and smaller font size than the heading.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-glowing-gradient-button-labeled-see-what-you-did-to-me-the-button-should-use-a-soft-pink-to-lavender-gradient-background-and-have-a-gentle-outer-glow-box-shadow-effect-it-should-navigate-to-the-next-chapter-timeline-overview-when-clicked-serving-the-same-navigation-role-as-the-existing-begin-our-story-button",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a glowing gradient button labeled 'See What You Did to Me'. The button should use a soft pink-to-lavender gradient background and have a gentle outer glow/box-shadow effect. It should navigate to the next chapter (Timeline Overview) when clicked, serving the same navigation role as the existing 'Begin Our Story' button.",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-on-the-hero-page-heropage-tsx-chapter-2-add-a-smooth-fade-in-animation-that-plays-on-page-load-all-content-elements-heart-icon-serif-heading-italic-subtext-and-gradient-button-should-fade-in-gracefully-either-simultaneously-or-with-a-subtle-stagger-the-overall-design-must-follow-a-minimal-dreamy-emotionally-modern-romantic-aesthetic-with-soft-shadows-and-glassmorphism-card-effects",
+      "title": "On the Hero Page (HeroPage.tsx, Chapter 2), add a smooth fade-in animation that plays on page load. All content elements — heart icon, serif heading, italic subtext, and gradient button — should fade in gracefully, either simultaneously or with a subtle stagger. The overall design must follow a minimal, dreamy, emotionally modern romantic aesthetic with soft shadows and glassmorphism card effects.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-site-wide-cinematic-romantic-redesign-across-all-pages-soft-lavender-to-blush-pink-gradient-backgrounds-subtle-floating-light-particles-small-glowing-dots-drifting-upward-soft-glow-effects-on-headings-and-cards-elegant-serif-typography-playfair-display-or-cormorant-garamond-for-headings-inter-for-body-and-smooth-emotional-fade-slide-transitions-between-all-pages-the-overall-aesthetic-must-feel-intimate-slow-emotional-mature-and-heartfelt-not-playful-or-childish",
+      "title": "Apply a site-wide cinematic romantic redesign across all pages: soft lavender-to-blush-pink gradient backgrounds, subtle floating light particles (small glowing dots drifting upward), soft glow effects on headings and cards, elegant serif typography (Playfair Display or Cormorant Garamond for headings, Inter for body), and smooth emotional fade/slide transitions between all pages. The overall aesthetic must feel intimate, slow, emotional, mature, and heartfelt — not playful or childish.",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-rebuild-the-timeline-page-timelineoverview-tsx-and-monthpage-tsx-as-a-scroll-based-romantic-timeline-from-march-2025-through-march-10-one-year-of-us-each-month-entry-must-include-a-picture-placeholder-for-future-photo-replacement-the-exact-personal-text-for-that-month-a-soft-fade-in-animation-triggered-on-scroll-elegant-spacing-with-emotional-pacing-and-subtle-glow-or-floating-heart-visual-transitions-between-month-entries-month-texts-must-be-used-exactly-as-written-march-the-beginning-after-so-many-struggles-and-waiting-on-march-10-you-said-yes-that-one-word-made-everything-worth-it-all-the-overthinking-all-the-fear-all-the-patience-it-suddenly-made-sense-that-day-we-became-us-the-day-my-world-changed-in-the-simplest-way-april-our-secret-little-love-we-hung-out-with-om-and-vighnesh-like-everything-was-normal-but-we-knew-holding-your-hand-while-walking-and-leaving-it-quickly-when-someone-looked-acting-calm-outside-while-my-heart-was-racing-inside-it-felt-exciting-it-felt-special-we-had-our-own-little-world-and-no-one-knew-may-the-break-overthinking-slowly-came-between-us-you-asked-to-just-be-friends-i-didn-t-know-how-to-love-you-less-so-instead-of-pretending-i-stepped-away-it-hurt-more-than-i-showed-loving-you-and-losing-you-at-the-same-time-was-painful-june-silence-no-calls-no-texts-no-late-night-talks-just-memories-i-learned-how-loud-silence-can-be-when-you-really-miss-someone-the-quiet-felt-heavier-than-any-fight-july-missing-you-another-month-without-you-i-tried-to-act-normal-but-everything-reminded-me-of-us-there-were-so-many-things-i-wanted-to-tell-you-but-nowhere-to-send-them-some-people-never-leave-your-heart-august-i-still-cared-your-birthday-came-and-no-matter-what-happened-between-us-i-couldn-t-stay-silent-i-wished-you-because-caring-never-stopped-i-even-asked-you-to-come-back-i-still-believed-in-us-but-you-said-no-and-after-that-we-stopped-talking-again-hope-is-brave-even-when-it-hurts-september-complete-distance-no-conversations-no-updates-it-felt-different-this-time-heavier-but-somewhere-inside-i-still-hoped-this-wasn-t-the-end-sometimes-love-hides-but-it-doesn-t-disappear-october-the-comeback-with-my-last-bit-of-courage-i-texted-you-again-i-didn-t-want-regret-i-just-wanted-one-more-chance-and-you-came-back-it-felt-like-breathing-again-like-getting-back-something-i-thought-i-lost-forever-some-love-stories-are-meant-to-restart-november-our-first-date-our-first-real-date-movie-pizza-sizzler-but-the-best-part-was-you-sitting-so-close-to-me-your-hands-inside-my-hoodie-holding-me-like-you-didn-t-want-to-move-away-i-couldn-t-even-focus-on-the-movie-my-heart-was-beating-fast-the-whole-time-having-you-that-close-made-me-feel-nervous-happy-and-wanted-i-didn-t-want-that-moment-to-end-that-day-felt-warm-it-felt-right-our-first-date-and-i-will-never-forget-how-close-we-felt-december-distance-begins-after-all-that-closeness-distance-became-real-no-random-hugs-no-sitting-next-to-each-other-some-days-were-hard-i-missed-you-more-than-i-said-but-even-miles-apart-i-didn-t-stop-choosing-you-distance-showed-me-how-much-you-matter-january-still-choosing-you-new-year-same-love-we-had-our-ups-and-downs-overthinking-sometimes-missing-each-other-a-lot-but-through-everything-i-stayed-because-loving-you-isn-t-something-i-question-i-choose-you-even-on-hard-days-february-growing-stronger-we-learned-patience-we-learned-understanding-we-learned-how-to-love-without-being-physically-close-it-wasn-t-always-easy-but-we-didn-t-give-up-we-grew-stronger-not-weaker-march-10-one-year-of-us-one-year-since-you-said-yes-after-struggles-breaks-silence-distance-and-comebacks-we-are-still-here-not-perfect-not-easy-but-real-and-if-i-could-go-back-to-the-beginning-i-would-still-choose-you-every-single-time",
+      "title": "Rebuild the Timeline page (TimelineOverview.tsx and MonthPage.tsx) as a scroll-based romantic timeline from March 2025 through March 10 One Year of Us. Each month entry must include: a picture placeholder for future photo replacement, the exact personal text for that month, a soft fade-in animation triggered on scroll, elegant spacing with emotional pacing, and subtle glow or floating heart visual transitions between month entries. Month texts must be used exactly as written: March – The Beginning: 'After so many struggles and waiting, on March 10, you said yes. That one word made everything worth it. All the overthinking, all the fear, all the patience — it suddenly made sense. That day, we became us. The day my world changed in the simplest way.' April – Our Secret Little Love: 'We hung out with Om and Vighnesh like everything was normal. But we knew. Holding your hand while walking, and leaving it quickly when someone looked. Acting calm outside, while my heart was racing inside. It felt exciting. It felt special. We had our own little world, and no one knew.' May – The Break: 'Overthinking slowly came between us. You asked to just be friends. I didn't know how to love you less. So instead of pretending, I stepped away. It hurt more than I showed. Loving you and losing you at the same time was painful.' June – Silence: 'No calls. No texts. No late-night talks. Just memories. I learned how loud silence can be when you really miss someone. The quiet felt heavier than any fight.' July – Missing You: 'Another month without you. I tried to act normal, but everything reminded me of us. There were so many things I wanted to tell you — but nowhere to send them. Some people never leave your heart.' August – I Still Cared: 'Your birthday came. And no matter what happened between us, I couldn't stay silent. I wished you. Because caring never stopped. I even asked you to come back. I still believed in us. But you said no. And after that, we stopped talking again. Hope is brave, even when it hurts.' September – Complete Distance: 'No conversations. No updates. It felt different this time. Heavier. But somewhere inside, I still hoped this wasn't the end. Sometimes love hides, but it doesn't disappear.' October – The Comeback: 'With my last bit of courage, I texted you again. I didn't want regret. I just wanted one more chance. And you came back. It felt like breathing again. Like getting back something I thought I lost forever. Some love stories are meant to restart.' November – Our First Date: 'Our first real date. Movie, pizza, sizzler. But the best part was you sitting so close to me. Your hands inside my hoodie, holding me like you didn't want to move away. I couldn't even focus on the movie. My heart was beating fast the whole time. Having you that close made me feel nervous, happy, and wanted. I didn't want that moment to end. That day felt warm. It felt right. Our first date, and I will never forget how close we felt.' December – Distance Begins: 'After all that closeness, distance became real. No random hugs. No sitting next to each other. Some days were hard. I missed you more than I said. But even miles apart, I didn't stop choosing you. Distance showed me how much you matter.' January – Still Choosing You: 'New year. Same love. We had our ups and downs. Overthinking sometimes. Missing each other a lot. But through everything, I stayed. Because loving you isn't something I question. I choose you — even on hard days.' February – Growing Stronger: 'We learned patience. We learned understanding. We learned how to love without being physically close. It wasn't always easy. But we didn't give up. We grew stronger, not weaker.' March 10 – One Year of Us: 'One year since you said yes. After struggles, breaks, silence, distance, and comebacks — we are still here. Not perfect. Not easy. But real. And if I could go back to the beginning, I would still choose you. Every single time.'",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-memories-gallery-page-memoriesgallery-tsx-change-the-page-title-to-our-memories-add-subtext-captured-moments-forever-feelings-remove-all-text-captions-below-images-add-floating-animated-hearts-overlaid-on-each-image-card-add-soft-glow-hover-effect-on-images-add-slight-zoom-in-on-hover-implement-a-romantic-lightbox-animation-when-an-image-is-clicked-with-smooth-fade-scale-open-and-blurred-background-overlay-and-add-subtle-floating-heart-particles-in-the-page-background",
+      "title": "Redesign the Memories Gallery page (MemoriesGallery.tsx): change the page title to 'Our Memories', add subtext 'Captured moments. Forever feelings.', remove all text captions below images, add floating animated hearts overlaid on each image card, add soft glow hover effect on images, add slight zoom-in on hover, implement a romantic lightbox animation when an image is clicked with smooth fade/scale open and blurred background overlay, and add subtle floating heart particles in the page background.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-childhood-stage-in-herjourney-tsx-change-the-stage-title-to-my-princess-is-born-remove-any-click-to-edit-or-placeholder-text-and-replace-the-body-text-with-exactly-you-once-came-into-this-world-as-a-tiny-little-baby-with-the-smallest-hands-and-the-purest-heart-you-didn-t-know-the-world-yet-you-didn-t-know-love-heartbreak-dreams-or-struggles-but-even-then-you-were-growing-into-someone-special-someone-kind-someone-strong-someone-who-would-one-day-change-my-life-without-even-trying-it-s-beautiful-to-think-that-the-little-baby-in-those-pictures-would-grow-up-to-become-the-most-important-person-in-mine",
+      "title": "Update the Childhood stage in HerJourney.tsx: change the stage title to 'My Princess Is Born', remove any click-to-edit or placeholder text, and replace the body text with exactly: 'You once came into this world as a tiny little baby, with the smallest hands and the purest heart. You didn't know the world yet. You didn't know love, heartbreak, dreams, or struggles. But even then, you were growing into someone special. Someone kind. Someone strong. Someone who would one day change my life without even trying. It's beautiful to think that the little baby in those pictures would grow up to become the most important person in mine.'",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-teenage-stage-in-herjourney-tsx-remove-any-placeholder-text-and-replace-it-with-exactly-in-your-teenage-years-you-were-learning-growing-and-finding-yourself-you-had-your-own-dreams-your-own-fears-your-own-battles-you-were-becoming-stronger-wiser-more-beautiful-not-just-outside-but-inside-too-every-phase-shaped-you-into-the-girl-you-are-today-and-i-admire-that-version-of-you-so-much-because-behind-your-smile-there-s-a-story-of-growth-and-strength",
+      "title": "Update the Teenage stage in HerJourney.tsx: remove any placeholder text and replace it with exactly: 'In your teenage years, you were learning, growing, and finding yourself. You had your own dreams, your own fears, your own battles. You were becoming stronger, wiser, more beautiful — not just outside, but inside too. Every phase shaped you into the girl you are today. And I admire that version of you so much. Because behind your smile, there's a story of growth and strength.'",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-girl-i-love-now-stage-in-herjourney-tsx-remove-any-placeholder-text-and-replace-it-with-exactly-and-now-here-you-are-not-just-the-little-girl-you-once-were-not-just-the-teenager-who-was-still-figuring-things-out-but-the-woman-i-fell-in-love-with-the-one-who-makes-me-smile-without-trying-the-one-who-overthinks-cares-deeply-loves-honestly-the-one-i-choose-every-single-day-out-of-all-the-versions-of-you-this-one-the-one-who-is-mine-is-my-favorite",
+      "title": "Update 'The Girl I Love Now' stage in HerJourney.tsx: remove any placeholder text and replace it with exactly: 'And now… here you are. Not just the little girl you once were. Not just the teenager who was still figuring things out. But the woman I fell in love with. The one who makes me smile without trying. The one who overthinks, cares deeply, loves honestly. The one I choose every single day. Out of all the versions of you, this one — the one who is mine — is my favorite.'",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-completely-redesign-the-love-letter-page-loveletterpage-tsx-replace-the-current-button-modal-with-an-interactive-postcard-style-envelope-component-labeled-to-my-krisha-when-clicked-the-envelope-animates-open-like-a-physical-postcard-with-the-flap-unfolding-and-the-letter-sliding-out-to-reveal-the-full-text-the-letter-must-read-exactly-to-my-krisha-my-love-it-s-been-one-year-since-march-10-the-day-you-said-yes-i-still-remember-how-badly-i-wanted-us-to-work-when-you-said-yes-i-didn-t-just-feel-happy-i-felt-relieved-like-i-finally-had-you-this-year-wasn-t-perfect-we-had-misunderstandings-we-had-distance-there-were-months-we-didn-t-even-talk-there-were-moments-i-thought-i-lost-you-but-no-matter-what-happened-one-thing-never-changed-i-never-stopped-loving-you-even-in-silence-i-cared-even-when-we-weren-t-together-i-still-chose-you-in-my-heart-and-when-you-came-back-into-my-life-in-october-it-felt-like-i-could-breathe-again-our-first-date-sitting-so-close-to-you-your-hands-inside-my-hoodie-me-pretending-to-watch-the-movie-while-my-heart-was-racing-i-ll-never-forget-that-feeling-now-we-re-doing-long-distance-and-it-s-not-easy-i-miss-you-more-than-i-say-sometimes-i-miss-your-presence-your-touch-your-closeness-but-i-want-you-to-know-something-very-clearly-i-choose-you-not-because-it-s-always-simple-not-because-everything-is-perfect-but-because-it-s-you-you-with-your-overthinking-you-with-your-smile-you-with-your-soft-heart-and-stubborn-moods-after-everything-we-ve-been-through-the-break-the-silence-the-comeback-we-re-still-here-and-if-i-had-to-go-back-to-the-beginning-i-would-still-fight-for-you-i-would-still-wait-for-you-i-would-still-choose-you-happy-one-year-my-love-thank-you-for-being-mine-forever-yours-sid-style-the-envelope-and-letter-with-soft-pink-lavender-glassmorphism-elegant-serif-typography-and-warm-romantic-lighting-a-next-chapter-navigation-button-must-remain-accessible",
+      "title": "Completely redesign the Love Letter page (LoveLetterPage.tsx): replace the current button/modal with an interactive postcard-style envelope component labeled 'To My Krisha'. When clicked, the envelope animates open like a physical postcard with the flap unfolding and the letter sliding out to reveal the full text. The letter must read exactly: 'To My Krisha — My love, It's been one year since March 10 — the day you said yes. I still remember how badly I wanted us to work. When you said yes, I didn't just feel happy… I felt relieved. Like I finally had you. This year wasn't perfect. We had misunderstandings. We had distance. There were months we didn't even talk. There were moments I thought I lost you. But no matter what happened, one thing never changed — I never stopped loving you. Even in silence, I cared. Even when we weren't together, I still chose you in my heart. And when you came back into my life in October, it felt like I could breathe again. Our first date, sitting so close to you, your hands inside my hoodie, me pretending to watch the movie while my heart was racing — I'll never forget that feeling. Now we're doing long distance, and it's not easy. I miss you more than I say sometimes. I miss your presence. Your touch. Your closeness. But I want you to know something very clearly — I choose you. Not because it's always simple. Not because everything is perfect. But because it's you. You, with your overthinking. You, with your smile. You, with your soft heart and stubborn moods. After everything we've been through — the break, the silence, the comeback — we're still here. And if I had to go back to the beginning, I would still fight for you. I would still wait for you. I would still choose you. Happy one year, my love. Thank you for being mine. Forever yours, Sid'. Style the envelope and letter with soft pink/lavender glassmorphism, elegant serif typography, and warm romantic lighting. A Next Chapter navigation button must remain accessible.",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-the-why-i-love-you-page-whyiloveyou-tsx-as-reasons-why-i-love-her-with-subtitle-1-display-one-heart-shaped-card-at-a-time-showing-a-single-reason-the-user-advances-through-10-reasons-one-at-a-time-using-a-next-button-after-the-10th-reason-card-pause-1-5-seconds-then-spawn-infinitely-floating-glowing-hearts-across-the-screen-display-a-large-infinity-symbol-show-the-text-do-i-even-need-a-reason-to-love-you-then-after-2-seconds-show-the-text-i-just-do-the-sequence-must-feel-cinematic-slow-and-deeply-emotional-use-the-existing-reasons-already-in-the-codebase-without-rewriting-them",
+      "title": "Redesign the Why I Love You page (WhyILoveYou.tsx) as 'Reasons Why I Love Her' with subtitle '1 → ∞'. Display one heart-shaped card at a time showing a single reason. The user advances through 10 reasons one at a time using a next button. After the 10th reason card: pause 1.5 seconds, then spawn infinitely floating glowing hearts across the screen, display a large infinity symbol, show the text 'Do I even need a reason to love you?' then after 2 seconds show the text 'I just do.' The sequence must feel cinematic, slow, and deeply emotional. Use the existing reasons already in the codebase without rewriting them.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-couple-quiz-page-couplequiz-tsx-with-romantic-heart-animations-on-answer-selection-glowing-button-effects-soft-glow-background-on-the-quiz-card-and-heart-particle-bursts-on-answer-feedback-maintain-all-existing-quiz-questions-answer-logic-scoring-and-navigation-structure-unchanged",
+      "title": "Enhance the Couple Quiz page (CoupleQuiz.tsx) with romantic heart animations on answer selection, glowing button effects, soft glow background on the quiz card, and heart particle bursts on answer feedback. Maintain all existing quiz questions, answer logic, scoring, and navigation structure unchanged.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-completely-rewrite-app-tsx-as-a-minimal-safe-root-component-it-must-only-manage-page-navigation-state-and-render-the-current-page-component-remove-all-complex-animation-logic-heavy-inline-imports-or-context-providers-from-the-top-level-file-wrap-the-entire-component-tree-in-a-top-level-react-error-boundary-class-component-that-catches-any-runtime-error-and-renders-a-visible-fallback-a-soft-pink-full-screen-background-fce4ec-a-centered-emoji-at-3rem-and-the-text-something-went-wrong-please-refresh-in-a-calm-serif-font-so-the-app-never-shows-a-blank-white-screen",
+      "title": "Completely rewrite App.tsx as a minimal, safe root component. It must only manage page navigation state and render the current page component. Remove all complex animation logic, heavy inline imports, or context providers from the top-level file. Wrap the entire component tree in a top-level React error boundary class component that catches any runtime error and renders a visible fallback: a soft pink full-screen background (#fce4ec), a centered ❤️ emoji at 3rem, and the text 'Something went wrong. Please refresh.' in a calm serif font — so the app never shows a blank white screen.",
+      "reqIds": [
+        "REQ-51"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-lazy-loading-for-all-heavy-page-components-using-react-lazy-and-react-suspense-in-app-tsx-pages-to-lazy-load-timelineoverview-monthpage-memoriesgallery-herjourney-loveletterpage-whyiloveyou-couplequiz-countdownpage-and-finalpage-lockscreen-and-heropage-must-remain-eagerly-imported-so-the-initial-paint-is-immediate-the-suspense-fallback-must-be-a-minimal-centered-pulsing-heart-on-a-soft-pink-background-not-a-blank-screen",
+      "title": "Implement lazy-loading for all heavy page components using React.lazy and React.Suspense in App.tsx. Pages to lazy-load: TimelineOverview, MonthPage, MemoriesGallery, HerJourney, LoveLetterPage, WhyILoveYou, CoupleQuiz, CountdownPage, and FinalPage. LockScreen and HeroPage must remain eagerly imported so the initial paint is immediate. The Suspense fallback must be a minimal centered pulsing heart (❤️) on a soft pink background — not a blank screen.",
+      "reqIds": [
+        "REQ-52"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-and-fix-every-page-component-file-lockscreen-tsx-heropage-tsx-timelineoverview-tsx-monthpage-tsx-memoriesgallery-tsx-herjourney-tsx-loveletterpage-tsx-whyiloveyou-tsx-couplequiz-tsx-countdownpage-tsx-finalpage-tsx-for-broken-or-missing-imports-undefined-variables-or-props-invalid-jsx-syntax-missing-required-props-and-any-code-that-throws-at-runtime-each-component-must-be-self-contained-and-render-without-errors-when-mounted-in-isolation-remove-or-replace-any-import-that-references-a-non-existent-module",
+      "title": "Audit and fix every page component file — LockScreen.tsx, HeroPage.tsx, TimelineOverview.tsx, MonthPage.tsx, MemoriesGallery.tsx, HerJourney.tsx, LoveLetterPage.tsx, WhyILoveYou.tsx, CoupleQuiz.tsx, CountdownPage.tsx, FinalPage.tsx — for: broken or missing imports, undefined variables or props, invalid JSX syntax, missing required props, and any code that throws at runtime. Each component must be self-contained and render without errors when mounted in isolation. Remove or replace any import that references a non-existent module.",
+      "reqIds": [
+        "REQ-53"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-appshell-tsx-floatinghearts-tsx-and-appcontext-tsx-for-code-that-throws-on-mount-including-accessing-undefined-dom-elements-calling-browser-apis-e-g-audio-canvas-document-before-the-component-is-mounted-or-invalid-initialization-logic-fix-all-issues-so-these-wrapper-components-mount-safely-wrap-any-dom-or-browser-api-calls-in-useeffect-with-null-guards-if-the-audio-element-in-appcontext-tsx-can-throw-e-g-due-to-a-missing-or-blocked-audio-source-catch-the-error-and-fail-silently-rather-than-crashing-the-app",
+      "title": "Audit AppShell.tsx, FloatingHearts.tsx, and AppContext.tsx for code that throws on mount — including accessing undefined DOM elements, calling browser APIs (e.g., Audio, canvas, document) before the component is mounted, or invalid initialization logic. Fix all issues so these wrapper components mount safely. Wrap any DOM or browser API calls in useEffect with null guards. If the Audio element in AppContext.tsx can throw (e.g., due to a missing or blocked audio source), catch the error and fail silently rather than crashing the app.",
+      "reqIds": [
+        "REQ-54"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-frontend-src-index-css-for-any-import-statements-or-google-fonts-url-references-that-could-block-rendering-or-fail-in-the-icp-deployment-environment-replace-any-external-import-font-urls-with-a-system-safe-fallback-font-stack-georgia-times-new-roman-serif-for-serif-headings-and-system-ui-apple-system-sans-serif-for-body-text-retain-all-romantic-css-custom-properties-tailwind-directives-and-component-class-definitions-glass-card-romantic-gradient-glow-effects-only-remove-or-replace-the-blocking-external-font-imports",
+      "title": "Audit frontend/src/index.css for any @import statements or Google Fonts URL references that could block rendering or fail in the ICP deployment environment. Replace any external @import font URLs with a system-safe fallback font stack: Georgia, 'Times New Roman', serif for serif headings and system-ui, -apple-system, sans-serif for body text. Retain all romantic CSS custom properties, Tailwind directives, and component class definitions (glass-card, romantic-gradient, glow effects) — only remove or replace the blocking external font imports.",
+      "reqIds": [
+        "REQ-55"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-rebuild-timelineoverview-tsx-as-a-single-page-scroll-based-romantic-timeline-replacing-the-clickable-month-grid-each-of-the-13-month-entries-march-2025-through-march-10-one-year-of-us-must-render-vertically-in-scroll-order-each-entry-includes-a-large-picture-placeholder-div-replaceable-later-the-exact-month-title-with-emoji-and-the-exact-personal-text-as-provided-by-the-user-preserving-all-line-breaks-and-punctuation-without-modification-entries-fade-in-softly-on-scroll-using-intersectionobserver-between-entries-add-a-subtle-floating-heart-or-soft-glow-divider-the-monthpage-tsx-individual-route-is-no-longer-needed-for-this-flow-navigation-from-the-timeline-goes-directly-to-the-memories-gallery-page-retain-the-next-chapter-button-at-the-bottom-of-the-scroll-page",
+      "title": "Rebuild TimelineOverview.tsx as a single-page scroll-based romantic timeline (replacing the clickable month grid). Each of the 13 month entries (March 2025 through March 10 – One Year of Us) must render vertically in scroll order. Each entry includes: a large picture placeholder div (replaceable later), the exact month title with emoji, and the exact personal text as provided by the user — preserving all line breaks and punctuation without modification. Entries fade in softly on scroll using IntersectionObserver. Between entries, add a subtle floating heart or soft glow divider. The MonthPage.tsx individual route is no longer needed for this flow — navigation from the timeline goes directly to the Memories Gallery page. Retain the 'Next Chapter' button at the bottom of the scroll page.",
+      "reqIds": [
+        "REQ-56"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-memoriesgallery-tsx-set-the-page-title-to-our-memories-and-add-italic-subtext-captured-moments-forever-feelings-beneath-it-remove-all-text-captions-below-images-overlay-each-image-card-with-2-3-small-floating-animated-heart-elements-css-keyframe-animation-drifting-upward-add-a-soft-pink-glow-box-shadow-on-image-hover-and-a-slight-css-scale-zoom-1-05-on-hover-implement-a-romantic-lightbox-clicking-any-image-opens-a-full-screen-overlay-with-a-blurred-background-the-image-scales-in-with-a-smooth-fade-scale-animation-and-a-close-button-dismisses-it-add-subtle-floating-heart-particles-drifting-upward-in-the-page-background-reuse-or-adapt-floatinghearts-pattern",
+      "title": "Redesign MemoriesGallery.tsx: set the page title to 'Our Memories' and add italic subtext 'Captured moments. Forever feelings.' beneath it. Remove all text captions below images. Overlay each image card with 2–3 small floating animated heart elements (CSS keyframe animation, drifting upward). Add a soft pink glow box-shadow on image hover and a slight CSS scale zoom (1.05) on hover. Implement a romantic lightbox: clicking any image opens a full-screen overlay with a blurred background, the image scales in with a smooth fade/scale animation, and a close button dismisses it. Add subtle floating heart particles drifting upward in the page background (reuse or adapt FloatingHearts pattern).",
+      "reqIds": [
+        "REQ-57"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-herjourney-tsx-stage-1-childhood-newborn-stage-change-the-stage-title-to-my-princess-is-born-remove-any-click-to-edit-placeholder-text-entirely-replace-the-body-text-with-exactly-you-once-came-into-this-world-as-a-tiny-little-baby-with-the-smallest-hands-and-the-purest-heart-you-didn-t-know-the-world-yet-you-didn-t-know-love-heartbreak-dreams-or-struggles-but-even-then-you-were-growing-into-someone-special-someone-kind-someone-strong-someone-who-would-one-day-change-my-life-without-even-trying-it-s-beautiful-to-think-that-the-little-baby-in-those-pictures-would-grow-up-to-become-the-most-important-person-in-mine-no-rewording-no-omissions",
+      "title": "Update HerJourney.tsx Stage 1 (Childhood/Newborn stage): change the stage title to 'My Princess Is Born'. Remove any click-to-edit placeholder text entirely. Replace the body text with exactly: 'You once came into this world as a tiny little baby, with the smallest hands and the purest heart. You didn't know the world yet. You didn't know love, heartbreak, dreams, or struggles. But even then, you were growing into someone special. Someone kind. Someone strong. Someone who would one day change my life without even trying. It's beautiful to think that the little baby in those pictures would grow up to become the most important person in mine.' — no rewording, no omissions.",
+      "reqIds": [
+        "REQ-58"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-herjourney-tsx-stage-2-teenage-stage-remove-all-placeholder-text-replace-the-body-text-with-exactly-in-your-teenage-years-you-were-learning-growing-and-finding-yourself-you-had-your-own-dreams-your-own-fears-your-own-battles-you-were-becoming-stronger-wiser-more-beautiful-not-just-outside-but-inside-too-every-phase-shaped-you-into-the-girl-you-are-today-and-i-admire-that-version-of-you-so-much-because-behind-your-smile-there-s-a-story-of-growth-and-strength-preserve-all-punctuation-and-em-dashes",
+      "title": "Update HerJourney.tsx Stage 2 (Teenage stage): remove all placeholder text. Replace the body text with exactly: 'In your teenage years, you were learning, growing, and finding yourself. You had your own dreams, your own fears, your own battles. You were becoming stronger, wiser, more beautiful — not just outside, but inside too. Every phase shaped you into the girl you are today. And I admire that version of you so much. Because behind your smile, there's a story of growth and strength.' — preserve all punctuation and em-dashes.",
+      "reqIds": [
+        "REQ-59"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-herjourney-tsx-stage-3-the-girl-i-love-now-stage-remove-all-placeholder-text-replace-the-body-text-with-exactly-and-now-here-you-are-not-just-the-little-girl-you-once-were-not-just-the-teenager-who-was-still-figuring-things-out-but-the-woman-i-fell-in-love-with-the-one-who-makes-me-smile-without-trying-the-one-who-overthinks-cares-deeply-loves-honestly-the-one-i-choose-every-single-day-out-of-all-the-versions-of-you-this-one-the-one-who-is-mine-is-my-favorite-preserve-the-ellipsis-em-dashes-and-heart-emoji",
+      "title": "Update HerJourney.tsx Stage 3 ('The Girl I Love Now' stage): remove all placeholder text. Replace the body text with exactly: 'And now… here you are. Not just the little girl you once were. Not just the teenager who was still figuring things out. But the woman I fell in love with. The one who makes me smile without trying. The one who overthinks, cares deeply, loves honestly. The one I choose every single day. Out of all the versions of you, this one — the one who is mine — is my favorite. 🤍' — preserve the ellipsis, em-dashes, and heart emoji.",
+      "reqIds": [
+        "REQ-60"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-completely-redesign-loveletterpage-tsx-replace-the-current-button-modal-pattern-with-an-interactive-postcard-style-envelope-component-the-envelope-face-displays-to-my-krisha-in-elegant-serif-typography-when-the-envelope-is-clicked-animate-the-flap-folding-open-css-3d-transform-rotatex-on-the-flap-element-and-the-letter-card-slides-or-fades-upward-into-view-the-letter-text-must-read-exactly-as-provided-by-the-user-full-multi-paragraph-letter-from-my-love-it-s-been-one-year-since-march-10-through-forever-yours-sid-no-sentence-may-be-reworded-shortened-or-omitted-style-the-envelope-and-letter-with-soft-pink-lavender-glassmorphism-warm-romantic-inner-glow-and-elegant-serif-typography-the-next-chapter-navigation-button-must-remain-visible-and-accessible-below-or-outside-the-envelope-component-at-all-times",
+      "title": "Completely redesign LoveLetterPage.tsx: replace the current button/modal pattern with an interactive postcard-style envelope component. The envelope face displays 'To My Krisha' in elegant serif typography. When the envelope is clicked, animate the flap folding open (CSS 3D transform / rotateX on the flap element) and the letter card slides or fades upward into view. The letter text must read exactly as provided by the user (full multi-paragraph letter from 'My love, It's been one year since March 10…' through '…Forever yours, Sid') — no sentence may be reworded, shortened, or omitted. Style the envelope and letter with soft pink/lavender glassmorphism, warm romantic inner glow, and elegant serif typography. The 'Next Chapter' navigation button must remain visible and accessible below or outside the envelope component at all times.",
+      "reqIds": [
+        "REQ-61"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-redesign-whyiloveyou-tsx-as-reasons-why-i-love-her-with-subtitle-1-display-one-heart-shaped-card-at-a-time-showing-a-single-reason-from-the-existing-codebase-reasons-list-the-user-advances-through-exactly-10-reasons-using-a-next-button-each-card-transition-uses-a-soft-fade-or-scale-animation-after-the-10th-reason-card-pause-for-1-5-seconds-then-spawn-continuously-floating-glowing-hearts-across-the-full-screen-absolute-positioned-css-keyframe-infinite-display-a-large-symbol-centered-on-screen-with-a-soft-glow-show-the-text-do-i-even-need-a-reason-to-love-you-fade-in-then-2-seconds-later-fade-in-the-text-i-just-do-the-entire-post-10th-card-sequence-must-feel-cinematic-slow-and-deeply-emotional-do-not-rewrite-or-reorder-any-of-the-existing-reasons-from-the-codebase",
+      "title": "Redesign WhyILoveYou.tsx as 'Reasons Why I Love Her' with subtitle '1 → ∞'. Display one heart-shaped card at a time showing a single reason from the existing codebase reasons list. The user advances through exactly 10 reasons using a 'Next' button — each card transition uses a soft fade or scale animation. After the 10th reason card, pause for 1.5 seconds, then: spawn continuously floating glowing hearts across the full screen (absolute positioned, CSS keyframe, infinite), display a large '∞' symbol centered on screen with a soft glow, show the text 'Do I even need a reason to love you?' fade in, then 2 seconds later fade in the text 'I just do.' The entire post-10th-card sequence must feel cinematic, slow, and deeply emotional. Do not rewrite or reorder any of the existing reasons from the codebase.",
+      "reqIds": [
+        "REQ-62"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-countdownpage-tsx-change-the-countdown-target-date-from-march-10-2026-to-march-10-2027-enhance-the-ui-with-a-soft-pink-rose-glow-effect-box-shadow-text-shadow-on-each-digit-display-card-continuously-floating-animated-hearts-in-the-page-background-using-css-keyframes-glassmorphism-card-styling-frosted-glass-background-with-backdrop-filter-blur-on-the-countdown-container-and-a-heartbeat-pulse-css-animation-on-a-decorative-heart-element-centered-above-or-below-the-timer-digits",
+      "title": "Update CountdownPage.tsx: change the countdown target date from March 10, 2026 to March 10, 2027. Enhance the UI with: a soft pink/rose glow effect (box-shadow + text-shadow) on each digit display card, continuously floating animated hearts in the page background using CSS keyframes, glassmorphism card styling (frosted glass background with backdrop-filter blur) on the countdown container, and a heartbeat pulse CSS animation on a decorative heart element centered above or below the timer digits.",
+      "reqIds": [
+        "REQ-63"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-couplequiz-tsx-with-romantic-ui-additions-without-changing-any-quiz-logic-questions-answers-scoring-or-navigation-add-floating-heart-particle-animations-that-trigger-on-each-answer-selection-apply-a-soft-pink-rose-outer-glow-box-shadow-to-the-quiz-card-container-add-a-glowing-gradient-effect-to-answer-option-buttons-on-hover-and-spawn-a-brief-heart-particle-burst-at-the-point-of-answer-feedback-display-all-existing-question-content-answer-options-feedback-messages-score-calculation-and-next-chapter-navigation-must-remain-completely-unchanged",
+      "title": "Enhance CoupleQuiz.tsx with romantic UI additions without changing any quiz logic, questions, answers, scoring, or navigation: add floating heart particle animations that trigger on each answer selection, apply a soft pink/rose outer glow (box-shadow) to the quiz card container, add a glowing gradient effect to answer option buttons on hover, and spawn a brief heart particle burst at the point of answer feedback display. All existing question content, answer options, feedback messages, score calculation, and 'Next Chapter' navigation must remain completely unchanged.",
+      "reqIds": [
+        "REQ-65"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-placeholder-images-in-memoriesgallery-tsx-with-the-two-uploaded-real-photos-use-the-first-uploaded-image-image-png-as-gallery-slot-1-and-the-second-uploaded-image-image-1-png-as-gallery-slot-2-place-both-images-as-static-assets-in-frontend-public-assets-photos-and-reference-them-via-relative-urls-the-remaining-gallery-slots-should-retain-their-existing-placeholder-styling-until-more-photos-are-provided",
+      "title": "Replace the placeholder images in MemoriesGallery.tsx with the two uploaded real photos. Use the first uploaded image (image.png) as gallery slot 1 and the second uploaded image (image-1.png) as gallery slot 2. Place both images as static assets in frontend/public/assets/photos/ and reference them via relative URLs. The remaining gallery slots should retain their existing placeholder styling until more photos are provided.",
+      "reqIds": [
+        "REQ-66"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-developer-facing-image-slot-inventory-to-the-codebase-as-a-comment-block-or-readme-section-listing-every-replaceable-image-placeholder-in-the-app-grouped-by-page-with-a-clear-slot-id-its-current-placeholder-description-and-the-exact-file-path-or-prop-where-the-real-photo-must-be-placed-this-serves-as-the-master-reference-for-the-one-by-one-photo-replacement-workflow",
+      "title": "Add a developer-facing image slot inventory to the codebase as a comment block or README section listing every replaceable image placeholder in the app, grouped by page, with a clear slot ID, its current placeholder description, and the exact file path or prop where the real photo must be placed. This serves as the master reference for the one-by-one photo replacement workflow.",
+      "reqIds": [
+        "REQ-67"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-memoriesgallery-tsx-replace-gallery-slots-3-4-and-5-with-real-user-provided-photos-reserve-named-asset-paths-for-each-slot-frontend-public-assets-photos-gallery-3-jpg-frontend-public-assets-photos-gallery-4-jpg-and-frontend-public-assets-photos-gallery-5-jpg-the-component-must-reference-these-paths-via-relative-urls-exactly-as-the-existing-slots-1-and-2-do-until-the-files-are-provided-render-the-same-styled-placeholder-div-that-currently-exists-so-the-layout-does-not-break",
+      "title": "In MemoriesGallery.tsx, replace gallery slots 3, 4, and 5 with real user-provided photos. Reserve named asset paths for each slot: frontend/public/assets/photos/gallery-3.jpg, frontend/public/assets/photos/gallery-4.jpg, and frontend/public/assets/photos/gallery-5.jpg. The component must reference these paths via relative URLs exactly as the existing slots 1 and 2 do. Until the files are provided, render the same styled placeholder div that currently exists so the layout does not break.",
+      "reqIds": [
+        "REQ-68"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-timelineoverview-tsx-wire-each-of-the-13-month-picture-placeholder-divs-to-a-named-static-asset-path-so-real-photos-can-be-dropped-in-without-code-changes-assign-paths-following-the-pattern-frontend-public-assets-photos-timeline-month-slug-jpg-e-g-timeline-march-jpg-timeline-april-jpg-timeline-march10-jpg-render-each-as-an-img-tag-with-a-graceful-fallback-if-the-file-is-missing-show-the-existing-styled-placeholder-div-with-the-same-dimensions-and-soft-pink-background",
+      "title": "In TimelineOverview.tsx, wire each of the 13 month picture-placeholder divs to a named static asset path so real photos can be dropped in without code changes. Assign paths following the pattern frontend/public/assets/photos/timeline-[month-slug].jpg (e.g., timeline-march.jpg, timeline-april.jpg, … timeline-march10.jpg). Render each as an <img> tag with a graceful fallback: if the file is missing, show the existing styled placeholder div with the same dimensions and soft pink background.",
+      "reqIds": [
+        "REQ-69"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-herjourney-tsx-wire-all-9-image-placeholder-slots-3-per-stage-stage-1-my-princess-is-born-stage-2-teenage-stage-3-the-girl-i-love-now-to-named-static-asset-paths-under-frontend-public-assets-photos-use-paths-journey-newborn-1-jpg-journey-newborn-2-jpg-journey-newborn-3-jpg-journey-teenage-1-jpg-journey-teenage-2-jpg-journey-teenage-3-jpg-journey-now-1-jpg-journey-now-2-jpg-journey-now-3-jpg-render-each-as-an-img-with-an-onerror-fallback-that-shows-the-existing-soft-pink-placeholder-div-so-the-layout-never-breaks-when-files-are-absent",
+      "title": "In HerJourney.tsx, wire all 9 image placeholder slots (3 per stage: Stage 1 'My Princess Is Born', Stage 2 'Teenage', Stage 3 'The Girl I Love Now') to named static asset paths under frontend/public/assets/photos/. Use paths: journey-newborn-1.jpg, journey-newborn-2.jpg, journey-newborn-3.jpg, journey-teenage-1.jpg, journey-teenage-2.jpg, journey-teenage-3.jpg, journey-now-1.jpg, journey-now-2.jpg, journey-now-3.jpg. Render each as an <img> with an onError fallback that shows the existing soft pink placeholder div so the layout never breaks when files are absent.",
+      "reqIds": [
+        "REQ-70"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-05-06-pm-jpeg-couple-selfie-against-brick-wall-as-a-static-asset-at-frontend-public-assets-photos-gallery-1-jpg-and-ensure-memoriesgallery-tsx-references-it-via-the-relative-url-assets-photos-gallery-1-jpg-for-gallery-slot-1",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.05.06 PM.jpeg' (couple selfie against brick wall) as a static asset at frontend/public/assets/photos/gallery-1.jpg and ensure MemoriesGallery.tsx references it via the relative URL '/assets/photos/gallery-1.jpg' for gallery slot 1.",
+      "reqIds": [
+        "REQ-71"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-05-11-pm-1-jpeg-sizzler-and-pizza-from-first-date-as-a-static-asset-at-frontend-public-assets-photos-gallery-2-jpg-and-ensure-memoriesgallery-tsx-references-it-via-the-relative-url-assets-photos-gallery-2-jpg-for-gallery-slot-2",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.05.11 PM (1).jpeg' (sizzler and pizza from first date) as a static asset at frontend/public/assets/photos/gallery-2.jpg and ensure MemoriesGallery.tsx references it via the relative URL '/assets/photos/gallery-2.jpg' for gallery slot 2.",
+      "reqIds": [
+        "REQ-72"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-05-05-pm-1-jpeg-mall-cinema-couple-selfie-both-smiling-wide-shot-as-a-static-asset-at-frontend-public-assets-photos-gallery-3-jpg-and-ensure-memoriesgallery-tsx-references-it-via-the-relative-url-assets-photos-gallery-3-jpg-for-gallery-slot-3",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.05.05 PM (1).jpeg' (mall/cinema couple selfie, both smiling wide shot) as a static asset at frontend/public/assets/photos/gallery-3.jpg and ensure MemoriesGallery.tsx references it via the relative URL '/assets/photos/gallery-3.jpg' for gallery slot 3.",
+      "reqIds": [
+        "REQ-73"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-05-06-pm-1-jpeg-two-babies-hugging-as-a-static-asset-at-frontend-public-assets-photos-gallery-4-jpg-and-ensure-memoriesgallery-tsx-references-it-via-the-relative-url-assets-photos-gallery-4-jpg-for-gallery-slot-4",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.05.06 PM (1).jpeg' (two babies hugging) as a static asset at frontend/public/assets/photos/gallery-4.jpg and ensure MemoriesGallery.tsx references it via the relative URL '/assets/photos/gallery-4.jpg' for gallery slot 4.",
+      "reqIds": [
+        "REQ-74"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-26-at-8-42-49-pm-jpeg-whatsapp-video-call-screenshot-long-distance-as-a-static-asset-at-frontend-public-assets-photos-gallery-5-jpg-and-ensure-memoriesgallery-tsx-references-it-via-the-relative-url-assets-photos-gallery-5-jpg-for-gallery-slot-5",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-26 at 8.42.49 PM.jpeg' (WhatsApp video call screenshot, long distance) as a static asset at frontend/public/assets/photos/gallery-5.jpg and ensure MemoriesGallery.tsx references it via the relative URL '/assets/photos/gallery-5.jpg' for gallery slot 5.",
+      "reqIds": [
+        "REQ-75"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-04-50-pm-1-jpeg-baby-krisha-alone-in-white-frilly-dress-with-flowers-in-hair-as-a-static-asset-at-frontend-public-assets-photos-journey-newborn-1-jpg-and-ensure-herjourney-tsx-stage-1-my-princess-is-born-slot-1-renders-it-via-the-relative-url-assets-photos-journey-newborn-1-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.04.50 PM (1).jpeg' (Baby Krisha alone in white frilly dress with flowers in hair) as a static asset at frontend/public/assets/photos/journey-newborn-1.jpg and ensure HerJourney.tsx Stage 1 ('My Princess Is Born') slot 1 renders it via the relative URL '/assets/photos/journey-newborn-1.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-76"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-image-2-png-mom-holding-baby-krisha-woman-in-purple-saree-cradling-her-as-a-static-asset-at-frontend-public-assets-photos-journey-newborn-2-jpg-and-ensure-herjourney-tsx-stage-1-my-princess-is-born-slot-2-renders-it-via-the-relative-url-assets-photos-journey-newborn-2-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'image-2.png' (Mom holding baby Krisha, woman in purple saree cradling her) as a static asset at frontend/public/assets/photos/journey-newborn-2.jpg and ensure HerJourney.tsx Stage 1 ('My Princess Is Born') slot 2 renders it via the relative URL '/assets/photos/journey-newborn-2.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-77"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-04-49-pm-jpeg-newborn-krisha-lying-on-floral-pink-sheet-youngest-as-a-static-asset-at-frontend-public-assets-photos-journey-newborn-3-jpg-and-ensure-herjourney-tsx-stage-1-my-princess-is-born-slot-3-renders-it-via-the-relative-url-assets-photos-journey-newborn-3-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.04.49 PM.jpeg' (Newborn Krisha lying on floral pink sheet, youngest) as a static asset at frontend/public/assets/photos/journey-newborn-3.jpg and ensure HerJourney.tsx Stage 1 ('My Princess Is Born') slot 3 renders it via the relative URL '/assets/photos/journey-newborn-3.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-78"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-05-09-pm-jpeg-toddler-krisha-with-colorful-pigtails-hands-on-cheeks-floral-outfit-as-a-static-asset-at-frontend-public-assets-photos-journey-teenage-1-jpg-and-ensure-herjourney-tsx-stage-2-teenage-slot-1-renders-it-via-the-relative-url-assets-photos-journey-teenage-1-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.05.09 PM.jpeg' (toddler Krisha with colorful pigtails, hands on cheeks, floral outfit) as a static asset at frontend/public/assets/photos/journey-teenage-1.jpg and ensure HerJourney.tsx Stage 2 ('Teenage') slot 1 renders it via the relative URL '/assets/photos/journey-teenage-1.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-79"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-04-25-pm-1-jpeg-young-krisha-hugging-elderly-woman-at-a-traditional-ceremony-orange-outfit-as-a-static-asset-at-frontend-public-assets-photos-journey-teenage-2-jpg-and-ensure-herjourney-tsx-stage-2-teenage-slot-2-renders-it-via-the-relative-url-assets-photos-journey-teenage-2-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.04.25 PM (1).jpeg' (young Krisha hugging elderly woman at a traditional ceremony, orange outfit) as a static asset at frontend/public/assets/photos/journey-teenage-2.jpg and ensure HerJourney.tsx Stage 2 ('Teenage') slot 2 renders it via the relative URL '/assets/photos/journey-teenage-2.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-80"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-image-3-png-krisha-in-blue-dress-at-an-event-dated-16-11-2012-as-a-static-asset-at-frontend-public-assets-photos-journey-teenage-3-jpg-and-ensure-herjourney-tsx-stage-2-teenage-slot-3-renders-it-via-the-relative-url-assets-photos-journey-teenage-3-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'image-3.png' (Krisha in blue dress at an event, dated 16.11.2012) as a static asset at frontend/public/assets/photos/journey-teenage-3.jpg and ensure HerJourney.tsx Stage 2 ('Teenage') slot 3 renders it via the relative URL '/assets/photos/journey-teenage-3.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-81"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-04-50-pm-2-jpeg-krisha-with-long-curly-hair-smiling-floral-top-indoor-mirror-setting-as-a-static-asset-at-frontend-public-assets-photos-journey-now-1-jpg-and-ensure-herjourney-tsx-stage-3-the-girl-i-love-now-slot-1-renders-it-via-the-relative-url-assets-photos-journey-now-1-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.04.50 PM (2).jpeg' (Krisha with long curly hair, smiling, floral top, indoor mirror setting) as a static asset at frontend/public/assets/photos/journey-now-1.jpg and ensure HerJourney.tsx Stage 3 ('The Girl I Love Now') slot 1 renders it via the relative URL '/assets/photos/journey-now-1.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-82"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-04-51-pm-2-jpeg-krisha-in-red-top-with-long-curly-hair-sitting-at-a-colorful-restaurant-as-a-static-asset-at-frontend-public-assets-photos-journey-now-2-jpg-and-ensure-herjourney-tsx-stage-3-the-girl-i-love-now-slot-2-renders-it-via-the-relative-url-assets-photos-journey-now-2-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.04.51 PM (2).jpeg' (Krisha in red top with long curly hair, sitting at a colorful restaurant) as a static asset at frontend/public/assets/photos/journey-now-2.jpg and ensure HerJourney.tsx Stage 3 ('The Girl I Love Now') slot 2 renders it via the relative URL '/assets/photos/journey-now-2.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-83"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-the-uploaded-image-whatsapp-image-2026-02-18-at-11-04-55-pm-2-jpeg-krisha-in-black-outfit-standing-in-front-of-ornate-painted-heritage-wall-as-a-static-asset-at-frontend-public-assets-photos-journey-now-3-jpg-and-ensure-herjourney-tsx-stage-3-the-girl-i-love-now-slot-3-renders-it-via-the-relative-url-assets-photos-journey-now-3-jpg-falling-back-to-the-existing-styled-placeholder-div-on-error",
+      "title": "Place the uploaded image 'WhatsApp Image 2026-02-18 at 11.04.55 PM (2).jpeg' (Krisha in black outfit standing in front of ornate painted heritage wall) as a static asset at frontend/public/assets/photos/journey-now-3.jpg and ensure HerJourney.tsx Stage 3 ('The Girl I Love Now') slot 3 renders it via the relative URL '/assets/photos/journey-now-3.jpg', falling back to the existing styled placeholder div on error.",
+      "reqIds": [
+        "REQ-84"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-memoriesgallery-tsx-and-confirm-that-all-5-gallery-image-slots-reference-the-correct-relative-urls-assets-photos-gallery-1-jpg-assets-photos-gallery-2-jpg-assets-photos-gallery-3-jpg-assets-photos-gallery-4-jpg-assets-photos-gallery-5-jpg-fix-any-incorrect-src-paths-broken-img-tags-or-missing-onerror-fallback-logic-so-that-all-5-real-photos-display-correctly-when-their-asset-files-are-present",
+      "title": "Audit MemoriesGallery.tsx and confirm that all 5 gallery image slots reference the correct relative URLs: '/assets/photos/gallery-1.jpg', '/assets/photos/gallery-2.jpg', '/assets/photos/gallery-3.jpg', '/assets/photos/gallery-4.jpg', '/assets/photos/gallery-5.jpg'. Fix any incorrect src paths, broken img tags, or missing onError fallback logic so that all 5 real photos display correctly when their asset files are present.",
+      "reqIds": [
+        "REQ-85"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-herjourney-tsx-stage-1-my-princess-is-born-and-confirm-that-all-3-newborn-image-slots-render-img-tags-with-the-correct-src-paths-assets-photos-journey-newborn-1-jpg-assets-photos-journey-newborn-2-jpg-assets-photos-journey-newborn-3-jpg-fix-any-incorrect-src-paths-missing-img-tags-or-broken-onerror-fallback-logic-so-that-all-3-photos-display-when-their-asset-files-are-present",
+      "title": "Audit HerJourney.tsx Stage 1 ('My Princess Is Born') and confirm that all 3 newborn image slots render <img> tags with the correct src paths: '/assets/photos/journey-newborn-1.jpg', '/assets/photos/journey-newborn-2.jpg', '/assets/photos/journey-newborn-3.jpg'. Fix any incorrect src paths, missing img tags, or broken onError fallback logic so that all 3 photos display when their asset files are present.",
+      "reqIds": [
+        "REQ-86"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-finalpage-tsx-locate-the-text-you-are-my-greatest-adventure-or-any-variant-of-it-currently-rendered-on-the-page-and-replace-it-with-exactly-nee-en-pokisham-dii-kishuu-do-not-change-any-other-text-styling-animations-or-logic-on-the-page",
+      "title": "In FinalPage.tsx, locate the text 'You are my greatest adventure' (or any variant of it currently rendered on the page) and replace it with exactly: 'nee en pokisham dii kishuu'. Do not change any other text, styling, animations, or logic on the page.",
+      "reqIds": [
+        "REQ-89"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-loveletterpage-tsx-locate-every-instance-of-the-text-to-my-krisha-rendered-on-the-envelope-face-or-inside-the-letter-header-and-replace-it-with-to-my-kishuu-do-not-change-any-other-text-styling-animations-or-logic-on-the-page",
+      "title": "In LoveLetterPage.tsx, locate every instance of the text 'To My Krisha' rendered on the envelope face or inside the letter header and replace it with 'To My Kishuu'. Do not change any other text, styling, animations, or logic on the page.",
+      "reqIds": [
+        "REQ-90"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-whyiloveyou-tsx-change-the-page-title-from-reasons-why-i-love-her-to-reasons-why-i-love-you-also-update-the-subtitle-if-it-references-her-in-a-way-that-should-now-address-you-do-not-change-any-other-text-logic-animations-card-content-reasons-list-or-navigation",
+      "title": "In WhyILoveYou.tsx, change the page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You'. Also update the subtitle if it references 'her' in a way that should now address 'you'. Do not change any other text, logic, animations, card content, reasons list, or navigation.",
+      "reqIds": [
+        "REQ-91"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Page 1 – Lock Screen with password (10032025) and unlock animation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Page 2 – Hero Page with typing animation and 'Begin Our Story' button",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Page 3 – Timeline Overview with clickable month buttons and dedicated month pages (editable image + paragraph)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Page 4 – Memories Gallery with lightbox, captions, and 5+ images",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Page 5 – 'Her Journey' section with 3 stages (Newborn, Teenage, Now), each with 3 images and editable text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Page 6 – Love Letter Page with modal popup and editable letter text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Page 7 – 'Why I Love You' with random reason generator (20+ editable reasons)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Page 8 – Couple Quiz with 5 questions, animated feedback, and romantic responses",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Page 9 – Countdown to 10 March 2026 with animated numbers and glow effect",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Page 10 – Final Page with confetti animation and romantic popup on button click",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Lock screen (Page 1): change title/heading text from 'Our Secret Garden' to 'Built From My Heart'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Page 2 (Hero/Chapter 2): Add serif heading '10.03.2025… The day you became my everything.', italic subtext 'Still falling for you. Every single day.', glowing gradient button 'See What You Did to Me', pulsing heart icon above heading, and fade-in animation on load with glassmorphism/modern romantic UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Page 6 (Love Letter/Chapter 6): Add serif heading '10.03.2025… The day you became my everything.', italic subtext 'Still falling for you. Every single day.', glowing gradient button 'See What You Did to Me', pulsing heart icon above heading, and fade-in animation on load with glassmorphism/modern romantic UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Hero Page (after unlock/Page 2): Add serif heading '10.03.2025… The day you became my everything.', italic subtext 'Still falling for you. Every single day.', glowing gradient button 'See What You Did to Me', pulsing heart icon above heading, and fade-in animation on load with minimal dreamy glassmorphism romantic UI",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Full cinematic redesign: lavender-to-blush-pink gradients, floating light particles, soft glow effects, elegant serif typography, smooth emotional transitions site-wide",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Timeline (Page 3): scroll-based timeline March–March 10 (one year) with exact personal text for each month, picture placeholders, fade-in on scroll, glow/heart transitions between months",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Memory Page: title 'Our Memories', subtext 'Captured moments. Forever feelings.', remove captions, add floating animated hearts over images, glow hover, zoom hover, romantic lightbox, floating heart particles in background",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Childhood Page: title 'My Princess Is Born', remove click-to-edit text, insert exact personal childhood paragraph text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Teenage Page: remove placeholder text, insert exact personal teenage paragraph text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "'The Girl I Love' Page: remove placeholder text, insert exact personal 'And now… here you are.' paragraph text",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Love Letter Page: interactive postcard-style envelope labeled 'To My Krisha', opens like physical postcard to reveal full exact love letter from Sid",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "'Reasons Why I Love Her' page: title 'Reasons Why I Love Her', subtitle '1 → ∞', one heart-shaped card at a time, after 10th card: 1.5s pause, infinite glowing hearts, show ∞, then 'Do I even need a reason to love you?' then 'I just do.' — cinematic and emotional",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Countdown Page: change target date to March 10, 2027; add glow UI, floating hearts, glassmorphism, heartbeat pulse animation",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Final Page: button 'Will you be my forever?', next screen YES/NO where NO moves away on hover/click, YES triggers popup 'Yaaay you are stuck with me forever 🤍' with heart explosion animation and romantic ending glow",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Update the Countdown page (CountdownPage.tsx): change the countdown target date from March 10, 2026 to March 10, 2027. Enhance the UI with a romantic glow effect on the digit displays, floating animated hearts in the background, glassmorphism card styling on the countdown container, and a heartbeat pulse animation on a decorative heart element.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Redesign the Final page (FinalPage.tsx): change the primary button label to 'Will you be my forever?'. When clicked, navigate to or reveal a new screen showing two choices: 'YES' and 'NO'. The NO button must be impossible to click — it must move away from the cursor or finger whenever the user attempts to hover or tap it. When YES is clicked, trigger a full-screen heart explosion animation with hearts bursting outward from center, display a romantic ending glow across the screen, and show a popup overlay with the exact text 'Yaaay you are stuck with me forever'.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Diagnose and fix the blank white screen crash that prevents the app from rendering. Audit all page components (LockScreen, HeroPage, TimelineOverview, MonthPage, MemoriesGallery, HerJourney, LoveLetterPage, WhyILoveYou, CoupleQuiz, CountdownPage, FinalPage) for runtime errors, broken imports, missing dependencies, or syntax issues. Ensure every component renders without throwing and that App.tsx mounts cleanly.",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Reduce the frontend bundle size and runtime memory footprint to prevent parse or memory errors on load. Split heavy animation logic (floating hearts, particle systems, confetti, heart bursts) into lazy-loaded or deferred modules so the initial render is lightweight. Ensure the app shell and Lock Screen load immediately without waiting for heavy page components.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Add a top-level React error boundary in App.tsx that catches any component-level runtime errors and renders a visible fallback UI (e.g., a soft pink screen with a heart icon and the message 'Something went wrong. Please refresh.') instead of a blank white screen. This prevents a single broken component from crashing the entire app silently.",
+      "reqIds": [
+        "REQ-42"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Audit and fix all runtime errors, broken imports, missing dependencies, and syntax issues across every page component (LockScreen, HeroPage, TimelineOverview, MonthPage, MemoriesGallery, HerJourney, LoveLetterPage, WhyILoveYou, CoupleQuiz, CountdownPage, FinalPage) and App.tsx so the app mounts and renders without throwing a blank white screen.",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-40",
+      "summary": "Add a top-level React error boundary wrapping the entire component tree in App.tsx. It must catch any component-level runtime errors and render a visible fallback UI — a soft pink screen with a heart icon and the message 'Something went wrong. Please refresh.' — instead of a blank white screen.",
+      "reqIds": [
+        "REQ-44"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Reduce the initial JavaScript bundle size by lazy-loading all heavy page components (TimelineOverview, MonthPage, MemoriesGallery, HerJourney, LoveLetterPage, WhyILoveYou, CoupleQuiz, CountdownPage, FinalPage) using React.lazy and Suspense in App.tsx. The Lock Screen and Hero Page must remain eagerly loaded so the initial render is immediate and lightweight.",
+      "reqIds": [
+        "REQ-45"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-42",
+      "summary": "Completely rewrite App.tsx as a minimal, safe root component. Remove all complex animation logic, context providers, and heavy imports from the top-level file. App.tsx must only manage page navigation state and render the current page component inside a top-level React error boundary. The error boundary must catch any component-level runtime error and render a visible fallback: a soft pink background with a centered heart icon (❤️) and the text 'Something went wrong. Please refresh.' so the app never shows a blank white screen.",
+      "reqIds": [
+        "REQ-46"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-43",
+      "summary": "Audit and fix every page component file (LockScreen.tsx, HeroPage.tsx, TimelineOverview.tsx, MonthPage.tsx, MemoriesGallery.tsx, HerJourney.tsx, LoveLetterPage.tsx, WhyILoveYou.tsx, CoupleQuiz.tsx, CountdownPage.tsx, FinalPage.tsx) for: broken or missing imports, undefined variables, invalid JSX, missing props, and any runtime-throwing code. Each component must be self-contained and render without errors when mounted in isolation.",
+      "reqIds": [
+        "REQ-47"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-44",
+      "summary": "Implement lazy-loading for all heavy page components using React.lazy and React.Suspense in App.tsx. The pages to lazy-load are: TimelineOverview, MonthPage, MemoriesGallery, HerJourney, LoveLetterPage, WhyILoveYou, CoupleQuiz, CountdownPage, and FinalPage. LockScreen and HeroPage must remain eagerly imported so the initial paint is immediate. The Suspense fallback must be a minimal centered spinner or pulsing heart on a soft pink background — not a blank screen.",
+      "reqIds": [
+        "REQ-48"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-45",
+      "summary": "Audit AppShell.tsx, FloatingHearts.tsx, and AppContext.tsx for any code that throws on mount (e.g., accessing undefined DOM elements, calling browser APIs before mount, invalid audio element initialization). Fix all issues so these wrapper components mount safely. If FloatingHearts.tsx uses canvas or heavy DOM operations, defer them inside a useEffect with a null guard.",
+      "reqIds": [
+        "REQ-49"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-46",
+      "summary": "Verify that frontend/src/index.css and frontend/index.css do not reference any Google Fonts URLs or @import statements that could block rendering in the ICP deployment environment. If external font imports are present, replace them with system-safe serif and sans-serif font stacks (e.g., Georgia, 'Times New Roman' for serif; system-ui, sans-serif for body) as fallbacks, while keeping the romantic CSS custom properties and Tailwind setup intact.",
+      "reqIds": [
+        "REQ-50"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-55",
+      "summary": "Redesign FinalPage.tsx: change the primary call-to-action button label to 'Will you be my forever?'. When clicked, replace the current view with a new screen showing two large buttons: 'YES' and 'NO'. The NO button must be impossible to click — on mouseenter/touchstart it must immediately move to a random position elsewhere on screen (use state to update its CSS position). The YES button, when clicked, triggers: a full-screen heart explosion animation (hearts burst outward from the center of the screen using absolute positioning and CSS keyframe transforms), a soft romantic glow overlay fades over the screen, and a popup/modal appears with the exact text 'Yaaay you are stuck with me forever 🤍'. Style the entire page with the romantic glassmorphism aesthetic consistent with the rest of the app.",
+      "reqIds": [
+        "REQ-64"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-56",
+      "summary": "Help user add/replace real photos into the app (gallery, timeline, her journey stages) replacing placeholder images",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-57",
+      "summary": "Replace all gallery placeholder images (slots 1-5) and Her Journey 'My Princess Is Born' slots (1-3) with user-provided real photos. Gallery: Slot 1=couple selfie brick wall, Slot 2=sizzler+pizza first date, Slot 3=mall/cinema couple selfie, Slot 4=two babies hugging, Slot 5=WhatsApp video call screenshot. Newborn slots: newborn-1=Baby Krisha alone white frilly dress, newborn-2=Mom holding baby Krisha purple saree, newborn-3=Newborn Krisha on floral pink sheet.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-58",
+      "summary": "Add 3 teenage stage photos (journey-teenage-1/2/3) and 3 'The Girl I Love Now' stage photos (journey-now-1/2/3) to HerJourney.tsx. Teenage: toddler Krisha pigtails, young Krisha hugging elderly woman orange outfit, Krisha blue dress 16.11.2012. Now stage: 3 user-provided photos. No teenage photos were previously placed in the codebase.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-61",
+      "summary": "Verify that the static asset files gallery-1.jpg through gallery-5.jpg are physically present under frontend/public/assets/photos/. If any files are missing from the public directory, re-place them from the previously uploaded source images: gallery-1.jpg from 'WhatsApp Image 2026-02-18 at 11.05.06 PM.jpeg', gallery-2.jpg from 'WhatsApp Image 2026-02-18 at 11.05.11 PM (1).jpeg', gallery-3.jpg from 'WhatsApp Image 2026-02-18 at 11.05.05 PM (1).jpeg', gallery-4.jpg from 'WhatsApp Image 2026-02-18 at 11.05.06 PM (1).jpeg', gallery-5.jpg from 'WhatsApp Image 2026-02-26 at 8.42.49 PM.jpeg'.",
+      "reqIds": [
+        "REQ-87"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-62",
+      "summary": "Verify that the static asset files journey-newborn-1.jpg, journey-newborn-2.jpg, and journey-newborn-3.jpg are physically present under frontend/public/assets/photos/. If any files are missing, re-place them from the previously uploaded source images: journey-newborn-1.jpg from 'WhatsApp Image 2026-02-18 at 11.04.50 PM (1).jpeg', journey-newborn-2.jpg from 'image-2.png', journey-newborn-3.jpg from 'WhatsApp Image 2026-02-18 at 11.04.49 PM.jpeg'.",
+      "reqIds": [
+        "REQ-88"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-63",
+      "summary": "Final Page: change the text 'You are my greatest adventure' to 'nee en pokisham dii kishuu'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-64",
+      "summary": "In LoveLetterPage.tsx, change the envelope label from 'To My Krisha' to 'To My Kishuu'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-65",
+      "summary": "Change the 'Why I Love You' page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You'",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Romantic Anniversary Website",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

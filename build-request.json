@@ -1,0 +1,41 @@
+{
+  "kind": "build_request",
+  "title": "Rename 'Reasons Why I Love Her' to 'Reasons Why I Love You' in WhyILoveYou.tsx",
+  "projectName": "Sid & Krisha Anniversary",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-91",
+      "text": "In WhyILoveYou.tsx, change the page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You'. Also update the subtitle if it references 'her' in a way that should now address 'you'. Do not change any other text, logic, animations, card content, reasons list, or navigation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-latest"
+        ],
+        "quotes": [
+          "change reason why i love her to Reason Why  I Love you?"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The page title displayed in WhyILoveYou.tsx reads 'Reasons Why I Love You' (not 'Reasons Why I Love Her').",
+        "No other text, reasons, animations, card layout, or navigation logic is changed.",
+        "The subtitle '1 → ∞' remains unchanged.",
+        "All 10 reason cards and the cinematic post-10th-card sequence remain exactly as before."
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not rewrite or reorder any of the existing reasons in WhyILoveYou.tsx.",
+    "Do not change any animation logic, card layout, or navigation in WhyILoveYou.tsx.",
+    "Only the page title string needs to change."
+  ],
+  "nonGoals": [
+    "Changing any other page or component.",
+    "Modifying the reasons list content.",
+    "Altering the cinematic ending sequence."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  }
+}

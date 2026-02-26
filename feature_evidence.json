@@ -1,0 +1,24 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-in-whyiloveyou-tsx-change-the-page-title-from-reasons-why-i-love-her-to-reasons-why-i-love-you-also-update-the-subtitle-if-it-references-her-in-a-way-that-should-now-address-you-do-not-change-any-other-text-logic-animations-card-content-reasons-list-or-navigation",
+      "featureTitle": "In WhyILoveYou.tsx, change the page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You'. Also update the subtitle if it references 'her' in a way that should now address 'you'. Do not change any other text, logic, animations, card content, reasons list, or navigation.",
+      "files": [
+        "frontend/src/pages/WhyILoveYou.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-91"
+      ],
+      "confidence": "high"
+    }
+  ]
+}
