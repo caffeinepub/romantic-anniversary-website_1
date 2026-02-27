@@ -1,5 +1,6 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useCallback, useEffect, useRef } from 'react';
 import ErrorBoundary from './components/ErrorBoundary';
+import AppShell from './components/AppShell';
 import LockScreen from './pages/LockScreen';
 import HeroPage from './pages/HeroPage';
 
@@ -54,16 +55,109 @@ const SuspenseFallback = () => (
   </div>
 );
 
+// Heart transition overlay hearts config
+const TRANSITION_HEARTS = Array.from({ length: 20 }, (_, i) => ({
+  id: i,
+  left: `${(i * 5 + 2) % 100}%`,
+  size: `${1.2 + (i % 5) * 0.6}rem`,
+  delay: `${(i % 8) * 0.07}s`,
+  duration: `${0.9 + (i % 4) * 0.15}s`,
+  color: ['#f9a8d4', '#f472b6', '#e879f9', '#c084fc', '#fb7185', '#fda4af'][i % 6],
+  startX: `${(i * 13 + 10) % 80 - 40}px`,
+}));
+
+interface HeartTransitionOverlayProps {
+  active: boolean;
+}
+
+const HeartTransitionOverlay: React.FC<HeartTransitionOverlayProps> = ({ active }) => {
+  if (!active) return null;
+
+  return (
+    <div
+      className="heart-transition-overlay"
+      aria-hidden="true"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 9999,
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+      }}
+    >
+      {TRANSITION_HEARTS.map((h) => (
+        <span
+          key={h.id}
+          className="transition-heart"
+          style={{
+            position: 'absolute',
+            left: h.left,
+            bottom: '10%',
+            fontSize: h.size,
+            color: h.color,
+            animationDelay: h.delay,
+            animationDuration: h.duration,
+            '--start-x': h.startX,
+          } as React.CSSProperties}
+        >
+          ♥
+        </span>
+      ))}
+    </div>
+  );
+};
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('lock');
   const [currentMonth, setCurrentMonth] = useState<string>('March');
+  const [transitionActive, setTransitionActive] = useState(false);
+  const pendingPageRef = useRef<Page | null>(null);
+  const pendingMonthRef = useRef<string | null>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const navigateTo = (page: Page) => setCurrentPage(page);
+  // Cleanup timer on unmount
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
-  const navigateToMonth = (month: string) => {
-    setCurrentMonth(month);
-    setCurrentPage('month');
-  };
+  const navigateTo = useCallback((page: Page) => {
+    // Don't animate on lock screen unlock (first navigation)
+    if (currentPage === 'lock') {
+      setCurrentPage(page);
+      return;
+    }
+    pendingPageRef.current = page;
+    setTransitionActive(true);
+    timerRef.current = setTimeout(() => {
+      if (pendingPageRef.current !== null) {
+        setCurrentPage(pendingPageRef.current);
+        pendingPageRef.current = null;
+      }
+      setTransitionActive(false);
+    }, 950);
+  }, [currentPage]);
+
+  const navigateToMonth = useCallback((month: string) => {
+    pendingMonthRef.current = month;
+    pendingPageRef.current = 'month';
+    setTransitionActive(true);
+    timerRef.current = setTimeout(() => {
+      if (pendingMonthRef.current !== null) {
+        setCurrentMonth(pendingMonthRef.current);
+        pendingMonthRef.current = null;
+      }
+      if (pendingPageRef.current !== null) {
+        setCurrentPage(pendingPageRef.current);
+        pendingPageRef.current = null;
+      }
+      setTransitionActive(false);
+    }, 950);
+  }, []);
 
   const renderPage = () => {
     switch (currentPage) {
@@ -139,7 +233,12 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      {renderPage()}
+      <AppShell>
+        <div style={{ position: 'relative' }}>
+          {renderPage()}
+          <HeartTransitionOverlay active={transitionActive} />
+        </div>
+      </AppShell>
     </ErrorBoundary>
   );
 }

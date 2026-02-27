@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-in-whyiloveyou-tsx-change-the-page-title-from-reasons-why-i-love-her-to-reasons-why-i-love-you-also-update-the-subtitle-if-it-references-her-in-a-way-that-should-now-address-you-do-not-change-any-other-text-logic-animations-card-content-reasons-list-or-navigation",
-      "featureTitle": "In WhyILoveYou.tsx, change the page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You'. Also update the subtitle if it references 'her' in a way that should now address 'you'. Do not change any other text, logic, animations, card content, reasons list, or navigation.",
+      "featureId": "feature-in-appcontext-tsx-remove-all-pause-mute-logic-from-the-music-implementation-the-background-audio-at-assets-music-background-mp3-must-start-playing-immediately-on-mount-autoplay-attempt-set-loop-true-set-volume-1-0-remove-the-ismusicplaying-state-and-togglemusic-handler-entirely-there-is-no-longer-a-play-pause-toggle-the-audio-simply-plays-on-loop-for-the-entire-session-if-autoplay-is-blocked-by-the-browser-silently-retry-on-the-first-user-interaction-click-keydown-on-the-document-using-a-one-time-event-listener-wrap-all-audio-operations-in-try-catch-that-fail-silently-the-app-must-never-crash-regardless-of-whether-the-file-exists-or-playback-is-blocked",
+      "featureTitle": "In AppContext.tsx, remove all pause/mute logic from the music implementation. The background audio at '/assets/music/background.mp3' must start playing immediately on mount (autoplay attempt), set loop = true, set volume = 1.0. Remove the isMusicPlaying state and toggleMusic handler entirely — there is no longer a play/pause toggle. The audio simply plays on loop for the entire session. If autoplay is blocked by the browser, silently retry on the first user interaction (click/keydown on the document) using a one-time event listener. Wrap all audio operations in try/catch that fail silently. The app must never crash regardless of whether the file exists or playback is blocked.",
       "files": [
-        "frontend/src/pages/WhyILoveYou.tsx"
+        "frontend/src/contexts/AppContext.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -16,7 +16,26 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-91"
+        "REQ-111"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-in-appshell-tsx-remove-the-music-toggle-button-entirely-since-music-now-plays-unconditionally-with-no-mute-option-there-is-no-longer-a-music-control-ui-element-needed-remove-any-references-to-ismusicplaying-togglemusic-or-the-music-button-jsx-from-appshell-tsx-do-not-change-the-dark-mode-toggle-or-any-other-part-of-appshell",
+      "featureTitle": "In AppShell.tsx, remove the music toggle button entirely. Since music now plays unconditionally with no mute option, there is no longer a music control UI element needed. Remove any references to isMusicPlaying, toggleMusic, or the music button JSX from AppShell.tsx. Do not change the dark mode toggle or any other part of AppShell.",
+      "files": [
+        "frontend/src/components/AppShell.tsx"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-112"
       ],
       "confidence": "high"
     }

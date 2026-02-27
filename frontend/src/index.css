@@ -46,6 +46,15 @@
   --sidebar-accent-foreground: oklch(0.35 0.12 350);
   --sidebar-border: oklch(0.88 0.04 350);
   --sidebar-ring: oklch(0.52 0.22 350);
+
+  /* Romantic gradient custom property */
+  --romantic-gradient: linear-gradient(
+    135deg,
+    oklch(0.88 0.08 290) 0%,
+    oklch(0.92 0.07 340) 30%,
+    oklch(0.94 0.06 10) 60%,
+    oklch(0.90 0.09 350) 100%
+  );
 }
 
 .dark {
@@ -85,6 +94,15 @@
   --sidebar-accent-foreground: oklch(0.85 0.06 350);
   --sidebar-border: oklch(0.28 0.06 350);
   --sidebar-ring: oklch(0.72 0.18 350);
+
+  /* Dark mode romantic gradient — deep purple to dark rose */
+  --romantic-gradient: linear-gradient(
+    135deg,
+    oklch(0.22 0.10 290) 0%,
+    oklch(0.18 0.08 330) 35%,
+    oklch(0.20 0.09 350) 65%,
+    oklch(0.16 0.07 10) 100%
+  );
 }
 
 * {
@@ -93,29 +111,72 @@
   padding: 0;
 }
 
-html,
-body {
+html {
   height: 100%;
+}
+
+body {
+  min-height: 100%;
   font-family: system-ui, -apple-system, sans-serif;
-  background-color: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Rich multi-stop romantic gradient — fixed so it doesn't scroll */
+  background:
+    linear-gradient(
+      135deg,
+      oklch(0.88 0.08 290) 0%,
+      oklch(0.92 0.07 340) 28%,
+      oklch(0.94 0.06 10) 55%,
+      oklch(0.90 0.09 350) 78%,
+      oklch(0.87 0.10 300) 100%
+    );
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Dark mode body gradient */
+.dark body,
+body.dark {
+  background:
+    linear-gradient(
+      135deg,
+      oklch(0.22 0.10 290) 0%,
+      oklch(0.18 0.08 330) 30%,
+      oklch(0.20 0.09 350) 60%,
+      oklch(0.16 0.07 10) 85%,
+      oklch(0.14 0.08 290) 100%
+    );
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Warm central radial glow vignette on body */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse 80% 70% at 50% 50%,
+    rgba(249, 168, 212, 0.12) 0%,
+    rgba(192, 132, 252, 0.06) 40%,
+    transparent 70%
+  );
 }
 
 #root {
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
-/* Romantic gradient background */
+/* Romantic gradient background utility class */
 .romantic-gradient {
-  background: linear-gradient(
-    135deg,
-    oklch(0.97 0.02 350) 0%,
-    oklch(0.94 0.04 340) 30%,
-    oklch(0.92 0.05 300) 70%,
-    oklch(0.97 0.02 350) 100%
-  );
+  background: var(--romantic-gradient);
+  background-attachment: fixed;
 }
 
 /* Glassmorphism card */
@@ -211,4 +272,81 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: oklch(0.6 0.18 350);
+}
+
+/* ============================================
+   HEART PAGE TRANSITION OVERLAY ANIMATIONS
+   ============================================ */
+
+/* Each heart rises from bottom, scales up, then fades out */
+@keyframes heartRise {
+  0% {
+    opacity: 0;
+    transform: translateY(0px) translateX(var(--start-x, 0px)) scale(0.3) rotate(-15deg);
+  }
+  15% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(-45vh) translateX(calc(var(--start-x, 0px) * 1.4)) scale(1.1) rotate(10deg);
+  }
+  80% {
+    opacity: 0.5;
+    transform: translateY(-75vh) translateX(calc(var(--start-x, 0px) * 1.8)) scale(0.9) rotate(-5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-95vh) translateX(calc(var(--start-x, 0px) * 2)) scale(0.6) rotate(20deg);
+  }
+}
+
+/* Center burst hearts that radiate outward */
+@keyframes heartBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0deg);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1.4) rotate(-10deg);
+  }
+  60% {
+    opacity: 0.8;
+    transform: scale(1.1) rotate(5deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(15deg);
+  }
+}
+
+/* Overlay fade in/out */
+@keyframes overlayFadeIn {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* The transition heart elements */
+.transition-heart {
+  animation: heartRise var(--duration, 0.95s) ease-out forwards;
+  animation-delay: var(--delay, 0s);
+  display: inline-block;
+  text-shadow:
+    0 0 12px rgba(249, 168, 212, 0.8),
+    0 0 24px rgba(244, 114, 182, 0.5);
+  will-change: transform, opacity;
+}
+
+/* Full-screen overlay that fades in and out */
+.heart-transition-overlay {
+  animation: overlayFadeIn 0.95s ease forwards;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(253, 242, 248, 0.55) 0%,
+    rgba(252, 231, 243, 0.35) 40%,
+    transparent 70%
+  );
 }

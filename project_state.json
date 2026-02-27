@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 37,
+  "projectStateVersion": 55,
   "summary": "Multi-page romantic anniversary website for Sid & Krisha, celebrating a relationship starting 10.03.2025. Single HTML file with cinematic, intimate, emotionally mature design — soft lavender-to-blush-pink gradients, floating light particles, elegant serif typography, smooth emotional transitions. Features: scroll-based timeline (March–March 10 one year), memory gallery with floating hearts and lightbox, childhood/teenage/girl-I-love journey pages with exact personal text, interactive postcard-style love letter envelope addressed 'To My Krisha', heart-card reasons page with infinite-heart ending, couple quiz with glow UI, countdown to March 10 2027, and final page with 'Will you be my forever?' YES/NO interaction where NO moves away and YES triggers heart explosion popup.",
   "architectural_notes": [
     "Single HTML file with JS-driven page navigation (show/hide sections), no server required",
@@ -11,14 +11,16 @@
     "All text areas editable and all images easily replaceable via placeholder src attributes",
     "Timeline is scroll-based (not button-navigated), with per-month fade-in on scroll and floating heart transitions between months",
     "Love Letter page uses interactive postcard-style envelope animation (opens like physical postcard to reveal letter)",
-    "Final page has YES/NO interaction where NO button moves away on hover/click; YES triggers heart explosion popup"
+    "Final page has YES/NO interaction where NO button moves away on hover/click; YES triggers heart explosion popup",
+    "Background music served from frontend/public/assets/music/background.mp3, toggled via AppContext music state"
   ],
   "known_issues": [
     "White page / blank screen on load — likely caused by bundle size, runtime JS error, or broken component import crashing the app before render",
     "HerJourney.tsx Stage 2 (Teenage) and Stage 3 (The Girl I Love Now) photos have NOT been placed yet — user confirmed no photos were added previously for these stages",
-    "Gallery slot images (gallery-1.jpg through gallery-5.jpg) and HerJourney Stage 1 newborn photos (journey-newborn-1/2/3.jpg) are not displaying — may be missing asset files or incorrect path references in MemoriesGallery.tsx and HerJourney.tsx"
+    "Gallery slot images (gallery-1.jpg through gallery-5.jpg) and HerJourney Stage 1 newborn photos (journey-newborn-1/2/3.jpg) are not displaying — may be missing asset files or incorrect path references in MemoriesGallery.tsx and HerJourney.tsx",
+    "Background music still not playing after multiple fix attempts — audio element lifecycle or src path issue persists in production"
   ],
-  "isFixRequest": false,
+  "isFixRequest": true,
   "existing_features": [
     {
       "id": "feature-implement-a-global-app-shell-with-soft-pink-and-lavender-gradient-theme-glassmorphism-card-styling-premium-serif-sans-serif-typography-no-childish-fonts-subtle-floating-hearts-background-animation-smooth-fade-slide-transitions-between-all-pages-a-dark-mode-toggle-and-a-music-play-pause-toggle-all-pages-must-be-mobile-responsive-and-feel-like-chapters-in-an-emotional-digital-love-book",
@@ -619,6 +621,150 @@
         "REQ-91"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-in-appcontext-tsx-update-the-audio-element-s-source-to-point-to-assets-music-background-mp3-the-file-the-user-will-place-at-frontend-public-assets-music-background-mp3-ensure-the-audio-is-set-to-loop-starts-muted-or-paused-by-default-respecting-the-existing-music-toggle-state-and-resumes-pauses-correctly-when-the-music-toggle-button-in-appshell-tsx-is-clicked-all-error-handling-must-remain-silent-if-the-file-is-absent-or-blocked-the-app-must-not-crash",
+      "title": "In AppContext.tsx, update the Audio element's source to point to '/assets/music/background.mp3' (the file the user will place at frontend/public/assets/music/background.mp3). Ensure the audio is set to loop, starts muted or paused by default (respecting the existing music toggle state), and resumes/pauses correctly when the music toggle button in AppShell.tsx is clicked. All error handling must remain silent — if the file is absent or blocked, the app must not crash.",
+      "reqIds": [
+        "REQ-92"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-site-wide-heart-transition-animations-that-play-whenever-the-active-page-changes-in-app-tsx-when-a-navigation-event-fires-onnext-page-change-overlay-a-brief-full-screen-heart-burst-or-floating-hearts-animation-css-keyframe-absolute-positioned-hearts-drifting-upward-or-radiating-outward-from-center-that-lasts-approximately-800-1200ms-before-the-new-page-content-fades-in-the-transition-must-not-block-interactivity-after-it-completes-and-must-not-cause-layout-shifts-or-scroll-jumps-reuse-or-extend-the-existing-floatinghearts-component-or-css-keyframe-patterns-already-in-the-codebase-rather-than-introducing-a-new-heavy-library",
+      "title": "Implement site-wide heart transition animations that play whenever the active page changes in App.tsx. When a navigation event fires (onNext / page change), overlay a brief full-screen heart burst or floating hearts animation (CSS keyframe, absolute-positioned hearts drifting upward or radiating outward from center) that lasts approximately 800–1200ms before the new page content fades in. The transition must not block interactivity after it completes and must not cause layout shifts or scroll jumps. Reuse or extend the existing FloatingHearts component or CSS keyframe patterns already in the codebase rather than introducing a new heavy library.",
+      "reqIds": [
+        "REQ-93"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appcontext-tsx-update-the-music-playback-logic-so-that-the-background-audio-at-assets-music-background-mp3-attempts-to-autoplay-immediately-when-the-website-first-opens-without-requiring-the-user-to-click-the-music-toggle-button-on-mount-call-audio-play-automatically-inside-a-useeffect-because-browsers-block-autoplay-without-user-interaction-catch-any-autoplay-rejection-silently-do-not-crash-or-log-errors-if-autoplay-is-blocked-by-the-browser-the-music-toggle-state-must-remain-consistent-so-the-user-can-manually-start-playback-by-clicking-the-toggle-if-autoplay-succeeds-update-the-music-toggle-state-to-reflect-that-music-is-currently-playing-the-audio-must-remain-set-to-loop-all-existing-silent-error-handling-must-be-preserved",
+      "title": "In AppContext.tsx, update the music playback logic so that the background audio at '/assets/music/background.mp3' attempts to autoplay immediately when the website first opens — without requiring the user to click the music toggle button. On mount, call audio.play() automatically inside a useEffect. Because browsers block autoplay without user interaction, catch any autoplay rejection silently (do not crash or log errors). If autoplay is blocked by the browser, the music toggle state must remain consistent so the user can manually start playback by clicking the toggle. If autoplay succeeds, update the music toggle state to reflect that music is currently playing. The audio must remain set to loop. All existing silent error handling must be preserved.",
+      "reqIds": [
+        "REQ-94"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appcontext-tsx-perform-a-full-audit-and-fix-of-the-background-music-implementation-ensure-the-audio-object-is-created-inside-a-useeffect-not-at-module-render-scope-to-avoid-ssr-or-hydration-issues-set-the-audio-src-to-assets-music-background-mp3-set-loop-to-true-wrap-all-audio-operations-creation-play-pause-src-assignment-in-try-catch-blocks-that-fail-silently-on-mount-attempt-audio-play-automatically-if-the-browser-rejects-autoplay-promise-rejection-catch-silently-and-set-the-music-toggle-state-to-false-so-the-user-can-manually-start-playback-via-the-toggle-if-autoplay-succeeds-set-the-music-toggle-state-to-true-the-play-pause-toggle-handler-must-call-audio-play-or-audio-pause-accordingly-and-update-the-toggle-state-to-reflect-actual-playback-status-if-the-audio-element-is-null-or-undefined-at-any-point-guard-against-it-with-null-checks-do-not-crash-the-app-under-any-circumstances",
+      "title": "In AppContext.tsx, perform a full audit and fix of the background music implementation. Ensure the Audio object is created inside a useEffect (not at module/render scope) to avoid SSR or hydration issues. Set the audio src to '/assets/music/background.mp3', set loop to true. Wrap all audio operations (creation, play, pause, src assignment) in try/catch blocks that fail silently. On mount, attempt audio.play() automatically; if the browser rejects autoplay (Promise rejection), catch silently and set the music toggle state to false so the user can manually start playback via the toggle. If autoplay succeeds, set the music toggle state to true. The play/pause toggle handler must call audio.play() or audio.pause() accordingly and update the toggle state to reflect actual playback status. If the audio element is null or undefined at any point, guard against it with null checks. Do not crash the app under any circumstances.",
+      "reqIds": [
+        "REQ-95"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-completely-rewrite-the-background-music-implementation-in-appcontext-tsx-from-scratch-create-the-audio-object-inside-a-useref-initialized-to-null-then-inside-a-single-useeffect-on-mount-1-create-a-new-audio-assets-music-background-mp3-2-set-loop-true-3-set-volume-1-0-4-store-it-in-the-ref-5-attempt-audio-play-and-catch-the-promise-rejection-silently-if-autoplay-succeeds-set-ismusicplaying-state-to-true-otherwise-set-it-to-false-the-play-pause-toggle-handler-must-read-the-current-audioref-current-value-call-play-or-pause-based-on-current-ismusicplaying-state-and-update-ismusicplaying-accordingly-on-component-unmount-call-audio-pause-and-set-audio-src-to-fully-release-the-resource-wrap-every-audio-operation-in-try-catch-that-fails-silently-the-audio-must-never-be-recreated-on-re-renders-use-useref-not-usestate-to-hold-the-audio-instance-this-ensures-the-music-plays-the-full-song-on-loop-for-the-entire-browser-session-without-stopping-between-page-transitions",
+      "title": "Completely rewrite the background music implementation in AppContext.tsx from scratch. Create the Audio object inside a useRef initialized to null, then inside a single useEffect on mount: (1) create a new Audio('/assets/music/background.mp3'), (2) set loop = true, (3) set volume = 1.0, (4) store it in the ref, (5) attempt audio.play() and catch the Promise rejection silently — if autoplay succeeds set isMusicPlaying state to true, otherwise set it to false. The play/pause toggle handler must read the current audioRef.current value, call play() or pause() based on current isMusicPlaying state, and update isMusicPlaying accordingly. On component unmount, call audio.pause() and set audio.src = '' to fully release the resource. Wrap every audio operation in try/catch that fails silently. The audio must NEVER be recreated on re-renders — use useRef, not useState, to hold the Audio instance. This ensures the music plays the full song on loop for the entire browser session without stopping between page transitions.",
+      "reqIds": [
+        "REQ-97"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appshell-tsx-audit-the-music-toggle-button-to-ensure-it-1-reads-ismusicplaying-from-appcontext-2-calls-the-togglemusic-function-from-appcontext-on-click-3-displays-a-clear-visual-indicator-of-the-current-state-show-a-or-filled-music-note-icon-when-playing-and-a-muted-crossed-note-when-paused-4-has-a-subtle-pink-glow-pulse-animation-when-music-is-actively-playing-do-not-change-the-button-s-position-or-size",
+      "title": "In AppShell.tsx, audit the music toggle button to ensure it: (1) reads isMusicPlaying from AppContext, (2) calls the toggleMusic function from AppContext on click, (3) displays a clear visual indicator of the current state — show a '♪' or filled music note icon when playing and a muted/crossed note when paused, (4) has a subtle pink glow pulse animation when music is actively playing. Do not change the button's position or size.",
+      "reqIds": [
+        "REQ-98"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-the-site-wide-romantic-background-theme-across-all-pages-in-index-css-and-tailwind-config-js-deepen-the-background-gradients-to-use-richer-multi-stop-lavender-to-blush-pink-to-rose-gradients-e-g-from-deep-lavender-c084fc-through-soft-pink-f9a8d4-to-warm-rose-fda4af-add-a-second-layer-of-ambient-background-a-radial-glow-vignette-in-the-center-of-each-page-using-a-large-semi-transparent-radial-gradient-overlaid-on-top-of-the-base-gradient-giving-a-warm-glowing-heart-of-light-effect-update-the-romantic-gradient-css-custom-property-to-use-a-135-degree-angle-with-at-least-3-color-stops-ensure-the-gradient-background-covers-100vh-and-is-fixed-background-attachment-fixed-so-it-does-not-scroll-with-content-creating-an-immersive-full-page-romantic-atmosphere",
+      "title": "Enhance the site-wide romantic background theme across all pages. In index.css and tailwind.config.js, deepen the background gradients to use richer multi-stop lavender-to-blush-pink-to-rose gradients (e.g., from deep lavender #c084fc through soft pink #f9a8d4 to warm rose #fda4af). Add a second layer of ambient background: a radial glow vignette in the center of each page using a large semi-transparent radial gradient overlaid on top of the base gradient, giving a warm glowing heart-of-light effect. Update the --romantic-gradient CSS custom property to use a 135-degree angle with at least 3 color stops. Ensure the gradient background covers 100vh and is fixed (background-attachment: fixed) so it does not scroll with content, creating an immersive full-page romantic atmosphere.",
+      "reqIds": [
+        "REQ-99"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enhance-floatinghearts-tsx-to-render-a-richer-floating-particle-system-for-the-love-theme-background-increase-the-number-of-floating-hearts-from-14-to-24-add-variety-mix-at-least-3-different-heart-sizes-small-0-8rem-medium-1-4rem-large-2rem-add-2-3-very-faint-large-background-hearts-opacity-0-04-0-07-size-4-6rem-that-drift-extremely-slowly-for-a-dreamy-depth-effect-add-subtle-glowing-dot-particles-small-circles-4-6px-soft-pink-lavender-color-opacity-0-3-0-5-that-drift-upward-alongside-the-hearts-at-least-8-such-particles-all-animations-must-use-css-keyframes-only-no-js-animation-loops-and-must-be-fully-gpu-composited-transform-opacity-only",
+      "title": "Enhance FloatingHearts.tsx to render a richer floating particle system for the love theme background. Increase the number of floating hearts from 14 to 24. Add variety: mix at least 3 different heart sizes (small 0.8rem, medium 1.4rem, large 2rem). Add 2–3 very faint large background hearts (opacity 0.04–0.07, size 4–6rem) that drift extremely slowly for a dreamy depth effect. Add subtle glowing dot particles (small circles, 4–6px, soft pink/lavender color, opacity 0.3–0.5) that drift upward alongside the hearts — at least 8 such particles. All animations must use CSS keyframes only, no JS animation loops, and must be fully GPU-composited (transform + opacity only).",
+      "reqIds": [
+        "REQ-100"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-site-wide-ambient-romantic-glow-overlay-in-appshell-tsx-render-a-fixed-full-screen-div-behind-all-page-content-z-index-0-pointer-events-none-that-contains-two-radial-gradient-pseudo-layers-one-warm-rose-glow-anchored-bottom-left-rgba-253-164-175-0-12-radial-gradient-40-circle-and-one-soft-lavender-glow-anchored-top-right-rgba-192-132-252-0-10-radial-gradient-35-circle-these-create-a-permanent-soft-bicolor-ambient-lighting-effect-across-every-page-the-page-content-must-sit-above-this-overlay-z-index-1-or-higher",
+      "title": "Add a site-wide ambient romantic glow overlay in AppShell.tsx: render a fixed full-screen div behind all page content (z-index: 0, pointer-events: none) that contains two radial gradient pseudo-layers — one warm rose glow anchored bottom-left (rgba(253,164,175,0.12) radial gradient 40% circle) and one soft lavender glow anchored top-right (rgba(192,132,252,0.10) radial gradient 35% circle). These create a permanent soft bicolor ambient lighting effect across every page. The page content must sit above this overlay (z-index: 1 or higher).",
+      "reqIds": [
+        "REQ-101"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-completely-rewrite-the-background-music-implementation-in-appcontext-tsx-from-scratch-create-the-audio-object-inside-a-useref-initialized-to-null-inside-a-single-useeffect-on-mount-1-create-new-audio-assets-music-background-mp3-2-set-loop-true-3-set-volume-1-0-4-store-it-in-the-ref-5-attempt-audio-play-and-catch-the-promise-rejection-silently-if-autoplay-succeeds-set-ismusicplaying-state-to-true-otherwise-set-it-to-false-the-play-pause-toggle-handler-must-read-audioref-current-call-play-or-pause-based-on-current-ismusicplaying-state-and-update-ismusicplaying-accordingly-on-component-unmount-call-audio-pause-and-set-audio-src-to-fully-release-the-resource-wrap-every-audio-operation-in-try-catch-that-fails-silently-the-audio-instance-must-never-be-recreated-on-re-renders-use-useref-not-usestate-to-hold-it-this-ensures-music-plays-the-full-song-on-loop-for-the-entire-browser-session-without-stopping-between-page-transitions",
+      "title": "Completely rewrite the background music implementation in AppContext.tsx from scratch. Create the Audio object inside a useRef initialized to null. Inside a single useEffect on mount: (1) create new Audio('/assets/music/background.mp3'), (2) set loop = true, (3) set volume = 1.0, (4) store it in the ref, (5) attempt audio.play() and catch the Promise rejection silently — if autoplay succeeds set isMusicPlaying state to true, otherwise set it to false. The play/pause toggle handler must read audioRef.current, call play() or pause() based on current isMusicPlaying state, and update isMusicPlaying accordingly. On component unmount, call audio.pause() and set audio.src = '' to fully release the resource. Wrap every audio operation in try/catch that fails silently. The Audio instance must NEVER be recreated on re-renders — use useRef, not useState, to hold it. This ensures music plays the full song on loop for the entire browser session without stopping between page transitions.",
+      "reqIds": [
+        "REQ-102"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appshell-tsx-audit-and-fix-the-music-toggle-button-to-ensure-it-1-reads-ismusicplaying-from-appcontext-2-calls-the-togglemusic-function-from-appcontext-on-click-3-displays-a-clear-visual-indicator-show-a-filled-music-note-icon-when-playing-and-a-muted-crossed-note-icon-when-paused-4-has-a-subtle-pink-glow-pulse-animation-when-music-is-actively-playing-do-not-change-the-button-s-position-or-size",
+      "title": "In AppShell.tsx, audit and fix the music toggle button to ensure it: (1) reads isMusicPlaying from AppContext, (2) calls the toggleMusic function from AppContext on click, (3) displays a clear visual indicator — show a '♪' filled music note icon when playing and a muted/crossed note icon when paused, (4) has a subtle pink glow pulse animation when music is actively playing. Do not change the button's position or size.",
+      "reqIds": [
+        "REQ-103"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-perform-a-ground-up-rewrite-of-the-background-music-system-in-appcontext-tsx-do-not-create-the-audio-object-at-module-scope-or-inside-usestate-use-a-useref-initialized-to-null-inside-a-single-useeffect-that-runs-only-once-on-mount-empty-dependency-array-1-instantiate-new-audio-assets-music-background-mp3-2-set-loop-true-3-set-volume-1-0-4-assign-the-instance-to-audioref-current-5-call-audioref-current-play-and-handle-the-returned-promise-if-it-resolves-set-ismusicplaying-to-true-if-it-rejects-autoplay-blocked-set-ismusicplaying-to-false-and-silently-swallow-the-error-the-togglemusic-handler-must-read-audioref-current-and-based-on-the-current-ismusicplaying-state-either-call-audioref-current-play-then-set-ismusicplaying-true-on-resolve-or-audioref-current-pause-then-set-ismusicplaying-false-on-component-unmount-call-audioref-current-pause-and-set-audioref-current-src-to-fully-release-the-resource-every-single-audio-operation-instantiation-play-pause-src-assignment-must-be-wrapped-in-its-own-try-catch-that-fails-silently-the-audio-instance-must-never-be-recreated-on-re-renders",
+      "title": "Perform a ground-up rewrite of the background music system in AppContext.tsx. Do NOT create the Audio object at module scope or inside useState — use a useRef initialized to null. Inside a single useEffect that runs only once on mount (empty dependency array): (1) instantiate new Audio('/assets/music/background.mp3'), (2) set .loop = true, (3) set .volume = 1.0, (4) assign the instance to audioRef.current, (5) call audioRef.current.play() and handle the returned Promise — if it resolves set isMusicPlaying to true; if it rejects (autoplay blocked) set isMusicPlaying to false and silently swallow the error. The toggleMusic handler must: read audioRef.current, and based on the current isMusicPlaying state either call audioRef.current.play() (then set isMusicPlaying true on resolve) or audioRef.current.pause() (then set isMusicPlaying false). On component unmount, call audioRef.current.pause() and set audioRef.current.src = '' to fully release the resource. Every single audio operation (instantiation, play, pause, src assignment) must be wrapped in its own try/catch that fails silently. The Audio instance must never be recreated on re-renders.",
+      "reqIds": [
+        "REQ-104"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-verify-that-the-audio-source-path-assets-music-background-mp3-resolves-correctly-in-the-icp-deployment-environment-in-appcontext-tsx-ensure-the-src-string-passed-to-the-audio-constructor-is-exactly-assets-music-background-mp3-absolute-path-from-origin-root-not-a-relative-path-add-an-error-event-listener-on-the-audio-element-inside-the-useeffect-that-silently-catches-load-failures-e-g-file-not-found-cors-or-codec-errors-and-sets-ismusicplaying-to-false-without-throwing",
+      "title": "Verify that the audio source path '/assets/music/background.mp3' resolves correctly in the ICP deployment environment. In AppContext.tsx, ensure the src string passed to the Audio constructor is exactly '/assets/music/background.mp3' (absolute path from origin root, not a relative path). Add an 'error' event listener on the audio element inside the useEffect that silently catches load failures (e.g., file not found, CORS, or codec errors) and sets isMusicPlaying to false without throwing.",
+      "reqIds": [
+        "REQ-106"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-completely-rewrite-appcontext-tsx-background-music-implementation-from-scratch-using-a-different-approach-instead-of-useref-use-a-module-level-variable-outside-the-component-to-hold-the-single-audio-instance-so-it-is-never-recreated-on-re-renders-or-context-re-mounts-on-first-call-to-the-context-provider-mount-if-the-module-level-audio-variable-is-null-create-new-audio-assets-music-background-mp3-set-loop-true-set-volume-1-0-and-assign-it-attempt-play-immediately-and-handle-the-returned-promise-on-resolve-set-ismusicplaying-state-to-true-on-reject-autoplay-blocked-set-ismusicplaying-to-false-and-swallow-the-error-silently-the-togglemusic-handler-must-call-play-or-pause-on-the-module-level-audio-variable-based-on-current-ismusicplaying-state-and-update-the-state-to-reflect-actual-playback-add-an-error-event-listener-on-the-audio-element-that-sets-ismusicplaying-to-false-without-throwing-wrap-every-single-audio-operation-instantiation-src-assignment-play-pause-event-listener-attachment-in-try-catch-that-fails-silently-the-app-must-never-crash-regardless-of-whether-the-file-exists-or-playback-is-blocked",
+      "title": "Completely rewrite AppContext.tsx background music implementation from scratch using a different approach: instead of useRef, use a module-level variable (outside the component) to hold the single Audio instance so it is never recreated on re-renders or context re-mounts. On first call to the context provider mount, if the module-level audio variable is null, create new Audio('/assets/music/background.mp3'), set .loop = true, set .volume = 1.0, and assign it. Attempt .play() immediately and handle the returned Promise — on resolve set isMusicPlaying state to true; on reject (autoplay blocked) set isMusicPlaying to false and swallow the error silently. The toggleMusic handler must call play() or pause() on the module-level audio variable based on current isMusicPlaying state and update the state to reflect actual playback. Add an 'error' event listener on the audio element that sets isMusicPlaying to false without throwing. Wrap every single audio operation (instantiation, src assignment, play, pause, event listener attachment) in try/catch that fails silently. The app must never crash regardless of whether the file exists or playback is blocked.",
+      "reqIds": [
+        "REQ-107"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-audit-the-appcontext-tsx-context-export-and-the-appshell-tsx-context-import-to-confirm-they-reference-the-same-context-object-verify-that-appcontext-is-created-with-react-createcontext-exported-from-appcontext-tsx-and-imported-correctly-in-appshell-tsx-with-usecontext-appcontext-confirm-the-context-provider-wraps-the-appshell-component-in-the-component-tree-i-e-appcontext-provider-is-an-ancestor-of-appshell-in-app-tsx-or-main-tsx-fix-any-mismatch-for-example-if-appshell-is-importing-from-the-wrong-path-or-if-the-provider-is-not-wrapping-appshell",
+      "title": "Audit the AppContext.tsx context export and the AppShell.tsx context import to confirm they reference the same context object. Verify that AppContext is created with React.createContext, exported from AppContext.tsx, and imported correctly in AppShell.tsx with useContext(AppContext). Confirm the context provider wraps the AppShell component in the component tree (i.e., AppContext.Provider is an ancestor of AppShell in App.tsx or main.tsx). Fix any mismatch — for example if AppShell is importing from the wrong path or if the provider is not wrapping AppShell.",
+      "reqIds": [
+        "REQ-109"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appcontext-tsx-set-the-initial-ismusicplaying-state-to-false-so-that-when-the-app-first-loads-the-music-is-muted-paused-by-default-do-not-attempt-autoplay-on-mount-the-audio-element-should-be-created-and-ready-but-play-must-not-be-called-automatically-music-should-only-start-when-the-user-explicitly-clicks-the-music-toggle-button-all-existing-silent-error-handling-loop-settings-and-toggle-logic-must-remain-intact",
+      "title": "In AppContext.tsx, set the initial isMusicPlaying state to false so that when the app first loads the music is muted/paused by default. Do NOT attempt autoplay on mount — the audio element should be created and ready, but play() must NOT be called automatically. Music should only start when the user explicitly clicks the music toggle button. All existing silent error handling, loop settings, and toggle logic must remain intact.",
+      "reqIds": [
+        "REQ-110"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appcontext-tsx-remove-all-pause-mute-logic-from-the-music-implementation-the-background-audio-at-assets-music-background-mp3-must-start-playing-immediately-on-mount-autoplay-attempt-set-loop-true-set-volume-1-0-remove-the-ismusicplaying-state-and-togglemusic-handler-entirely-there-is-no-longer-a-play-pause-toggle-the-audio-simply-plays-on-loop-for-the-entire-session-if-autoplay-is-blocked-by-the-browser-silently-retry-on-the-first-user-interaction-click-keydown-on-the-document-using-a-one-time-event-listener-wrap-all-audio-operations-in-try-catch-that-fail-silently-the-app-must-never-crash-regardless-of-whether-the-file-exists-or-playback-is-blocked",
+      "title": "In AppContext.tsx, remove all pause/mute logic from the music implementation. The background audio at '/assets/music/background.mp3' must start playing immediately on mount (autoplay attempt), set loop = true, set volume = 1.0. Remove the isMusicPlaying state and toggleMusic handler entirely — there is no longer a play/pause toggle. The audio simply plays on loop for the entire session. If autoplay is blocked by the browser, silently retry on the first user interaction (click/keydown on the document) using a one-time event listener. Wrap all audio operations in try/catch that fail silently. The app must never crash regardless of whether the file exists or playback is blocked.",
+      "reqIds": [
+        "REQ-111"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appshell-tsx-remove-the-music-toggle-button-entirely-since-music-now-plays-unconditionally-with-no-mute-option-there-is-no-longer-a-music-control-ui-element-needed-remove-any-references-to-ismusicplaying-togglemusic-or-the-music-button-jsx-from-appshell-tsx-do-not-change-the-dark-mode-toggle-or-any-other-part-of-appshell",
+      "title": "In AppShell.tsx, remove the music toggle button entirely. Since music now plays unconditionally with no mute option, there is no longer a music control UI element needed. Remove any references to isMusicPlaying, toggleMusic, or the music button JSX from AppShell.tsx. Do not change the dark mode toggle or any other part of AppShell.",
+      "reqIds": [
+        "REQ-112"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -927,6 +1073,66 @@
     {
       "id": "AR-65",
       "summary": "Change the 'Why I Love You' page title from 'Reasons Why I Love Her' to 'Reasons Why I Love You'",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-66",
+      "summary": "Add background music (Kadhaippoma song) to the entire website via frontend/public/assets/music/background.mp3, wired to the existing music toggle so it plays site-wide",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-67",
+      "summary": "Add heart transition animations between pages site-wide — hearts burst or float during page transitions to enhance the romantic feel",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-68",
+      "summary": "Background music must autoplay when the website first opens (not require user to click the music toggle first)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-70",
+      "summary": "Verify that the static asset file 'background.mp3' is correctly referenced. In AppShell.tsx, confirm the music toggle button correctly reads the music state from AppContext and calls the toggle function. Ensure the toggle button visually reflects the current playing/paused state (e.g., a different icon or label when music is playing vs paused). No changes to the button's position or styling beyond reflecting state.",
+      "reqIds": [
+        "REQ-96"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-71",
+      "summary": "Fix background music so it plays the full song on loop for the entire website session until the user closes the browser. Music must not stop or reset between page transitions.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-72",
+      "summary": "Enhance the site-wide background theme with a richer love/romantic theme — more immersive background visuals, deeper pink/lavender/rose gradients, enhanced floating hearts or particles, and a more emotionally warm atmosphere across all pages.",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-74",
+      "summary": "Audit and fix AppShell.tsx's music toggle button to ensure it correctly reads isMusicPlaying from AppContext and calls toggleMusic from AppContext on click. The button must display '♪' (or a filled music note icon) when music is playing, and a muted/crossed-out note symbol when music is paused. When music is actively playing, apply a subtle CSS pink glow pulse animation to the button. Do not change the button's position or size.",
+      "reqIds": [
+        "REQ-105"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-76",
+      "summary": "Rewrite the music toggle button in AppShell.tsx to be fully self-contained and robust. The button must: (1) consume isMusicPlaying and toggleMusic directly from the AppContext using useContext, (2) render a '♪' symbol or filled note icon when isMusicPlaying is true and a '♪̶' or muted symbol when false, (3) on click call toggleMusic() from context — do NOT inline any audio logic in AppShell, (4) apply a CSS keyframe pink glow pulse animation (box-shadow pulsing from rgba(244,114,182,0.6) to transparent) only when isMusicPlaying is true, (5) if AppContext or toggleMusic is undefined for any reason, the button must fail gracefully (no-op on click, no crash). Do not change the button's position or size.",
+      "reqIds": [
+        "REQ-108"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-79",
+      "summary": "Remove the mute/default-off behavior for background music. Music must autoplay and be ON by default when the website loads — no mute option, music simply plays immediately on load without requiring any user interaction.",
       "reqIds": [],
       "status": "pending"
     }

@@ -1,22 +1,40 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Rename 'Reasons Why I Love Her' to 'Reasons Why I Love You' in WhyILoveYou.tsx",
+  "title": "Remove mute option — music plays on by default with no pause/mute capability",
   "requirements": [
     {
-      "id": "REQ-91",
-      "summary": "Change the page title in WhyILoveYou.tsx from 'Reasons Why I Love Her' to 'Reasons Why I Love You', ensuring no other text, logic, animations, or content is modified",
+      "id": "REQ-111",
+      "summary": "Remove all pause/mute logic from AppContext.tsx and make background music autoplay on loop with silent error handling",
       "acceptanceCriteria": [
-        "The page title displayed in WhyILoveYou.tsx reads 'Reasons Why I Love You' (not 'Reasons Why I Love Her').",
-        "No other text, reasons, animations, card layout, or navigation logic is changed.",
-        "The subtitle '1 → ∞' remains unchanged.",
-        "All 10 reason cards and the cinematic post-10th-card sequence remain exactly as before."
+        "Background music begins playing automatically when the app loads without any user interaction.",
+        "There is no isMusicPlaying state or toggleMusic function in AppContext.tsx.",
+        "Audio is set to loop = true and volume = 1.0.",
+        "If autoplay is blocked, a one-time document interaction listener retries audio.play() silently.",
+        "All audio operations are wrapped in try/catch that fail silently — the app never crash."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/WhyILoveYou.tsx",
+          "path": "frontend/src/contexts/AppContext.tsx",
           "operation": "modify",
-          "description": "Update the page title text from 'Reasons Why I Love Her' to 'Reasons Why I Love You'. Locate the title heading element and change only the title string. If the subtitle references 'her' in a way that should address 'you', update it as well. Do not modify any reason card content, animations, cinematic sequence logic, or navigation callbacks."
+          "description": "Remove the isMusicPlaying state and toggleMusic handler entirely. Modify the audio initialization to attempt autoplay immediately on mount with loop = true and volume = 1.0. Add a one-time document interaction listener (click/keydown) that retries audio.play() silently if autoplay is blocked. Wrap all audio operations in try/catch blocks that fail silently to ensure the app never crashes regardless of audio file availability or playback restrictions."
+        }
+      ]
+    },
+    {
+      "id": "REQ-112",
+      "summary": "Remove the music toggle button from AppShell.tsx UI",
+      "acceptanceCriteria": [
+        "The music toggle button is no longer rendered anywhere in AppShell.tsx.",
+        "No references to isMusicPlaying or toggleMusic remain in AppShell.tsx.",
+        "The dark mode toggle and all other AppShell UI elements remain unchanged.",
+        "No TypeScript errors result from removing the music button references."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/AppShell.tsx",
+          "operation": "modify",
+          "description": "Remove the music toggle button JSX and all references to isMusicPlaying and toggleMusic from the AppContext. Preserve the dark mode toggle button and all other UI elements including ambient glow overlays and floating hearts background. Ensure no TypeScript errors remain after removing the music control references."
         }
       ]
     }
