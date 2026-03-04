@@ -3,11 +3,15 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 interface AppContextType {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
+  isMusicPlaying: boolean;
+  toggleMusic: () => void;
 }
 
 const AppContext = createContext<AppContextType>({
   isDarkMode: false,
   toggleDarkMode: () => {},
+  isMusicPlaying: false,
+  toggleMusic: () => {},
 });
 
 // Module-level Audio instance — created exactly once per browser session
@@ -29,39 +33,21 @@ function getAudio(): HTMLAudioElement | null {
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
 
-  // Autoplay music on mount; retry on first user interaction if blocked
+  // Attach error listener once on mount
   useEffect(() => {
     const audio = getAudio();
     if (!audio) return;
 
-    const tryPlay = () => {
-      try {
-        const promise = audio.play();
-        if (promise !== undefined) {
-          promise.catch(() => {
-            // Autoplay blocked — wait for first user interaction
-            const resume = () => {
-              try {
-                audio.play().catch(() => {});
-              } catch {
-                // fail silently
-              }
-              document.removeEventListener('click', resume);
-              document.removeEventListener('keydown', resume);
-              document.removeEventListener('touchstart', resume);
-            };
-            document.addEventListener('click', resume, { once: true });
-            document.addEventListener('keydown', resume, { once: true });
-            document.addEventListener('touchstart', resume, { once: true });
-          });
-        }
-      } catch {
-        // fail silently
-      }
+    const handleError = () => {
+      setIsMusicPlaying(false);
     };
 
-    tryPlay();
+    audio.addEventListener('error', handleError);
+    return () => {
+      audio.removeEventListener('error', handleError);
+    };
   }, []);
 
   // Dark mode effect
@@ -79,8 +65,39 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const toggleDarkMode = () => setIsDarkMode((prev) => !prev);
 
+  const toggleMusic = () => {
+    const audio = getAudio();
+    if (!audio) return;
+
+    if (isMusicPlaying) {
+      try {
+        audio.pause();
+        setIsMusicPlaying(false);
+      } catch {
+        // fail silently
+      }
+    } else {
+      try {
+        const promise = audio.play();
+        if (promise !== undefined) {
+          promise
+            .then(() => {
+              setIsMusicPlaying(true);
+            })
+            .catch(() => {
+              setIsMusicPlaying(false);
+            });
+        } else {
+          setIsMusicPlaying(true);
+        }
+      } catch {
+        setIsMusicPlaying(false);
+      }
+    }
+  };
+
   return (
-    <AppContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+    <AppContext.Provider value={{ isDarkMode, toggleDarkMode, isMusicPlaying, toggleMusic }}>
       {children}
     </AppContext.Provider>
   );

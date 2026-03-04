@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-in-appcontext-tsx-remove-all-pause-mute-logic-from-the-music-implementation-the-background-audio-at-assets-music-background-mp3-must-start-playing-immediately-on-mount-autoplay-attempt-set-loop-true-set-volume-1-0-remove-the-ismusicplaying-state-and-togglemusic-handler-entirely-there-is-no-longer-a-play-pause-toggle-the-audio-simply-plays-on-loop-for-the-entire-session-if-autoplay-is-blocked-by-the-browser-silently-retry-on-the-first-user-interaction-click-keydown-on-the-document-using-a-one-time-event-listener-wrap-all-audio-operations-in-try-catch-that-fail-silently-the-app-must-never-crash-regardless-of-whether-the-file-exists-or-playback-is-blocked",
-      "featureTitle": "In AppContext.tsx, remove all pause/mute logic from the music implementation. The background audio at '/assets/music/background.mp3' must start playing immediately on mount (autoplay attempt), set loop = true, set volume = 1.0. Remove the isMusicPlaying state and toggleMusic handler entirely — there is no longer a play/pause toggle. The audio simply plays on loop for the entire session. If autoplay is blocked by the browser, silently retry on the first user interaction (click/keydown on the document) using a one-time event listener. Wrap all audio operations in try/catch that fail silently. The app must never crash regardless of whether the file exists or playback is blocked.",
+      "featureId": "feature-in-appcontext-tsx-implement-background-music-using-a-module-level-audio-variable-outside-the-component-so-it-is-never-recreated-on-re-renders-or-context-re-mounts-on-first-provider-mount-if-the-module-level-audio-variable-is-null-create-new-audio-assets-music-background-mp3-set-loop-true-set-volume-1-0-assign-it-to-the-module-level-variable-attach-an-error-event-listener-that-sets-ismusicplaying-to-false-silently-do-not-attempt-autoplay-music-starts-paused-expose-ismusicplaying-boolean-default-false-and-togglemusic-calls-audio-play-or-audio-pause-based-on-current-state-updates-ismusicplaying-accordingly-via-context-wrap-every-single-audio-operation-in-try-catch-that-fails-silently-the-app-must-never-crash-regardless-of-whether-the-file-exists-or-playback-is-blocked",
+      "featureTitle": "In AppContext.tsx, implement background music using a module-level Audio variable (outside the component) so it is never recreated on re-renders or context re-mounts. On first provider mount, if the module-level audio variable is null: create new Audio('/assets/music/background.mp3'), set .loop = true, set .volume = 1.0, assign it to the module-level variable, attach an 'error' event listener that sets isMusicPlaying to false silently. Do NOT attempt autoplay — music starts paused. Expose isMusicPlaying (boolean, default false) and toggleMusic (calls audio.play() or audio.pause() based on current state, updates isMusicPlaying accordingly) via context. Wrap every single audio operation in try/catch that fails silently. The app must never crash regardless of whether the file exists or playback is blocked.",
       "files": [
         "frontend/src/contexts/AppContext.tsx"
       ],
@@ -16,13 +16,13 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-111"
+        "REQ-113"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-in-appshell-tsx-remove-the-music-toggle-button-entirely-since-music-now-plays-unconditionally-with-no-mute-option-there-is-no-longer-a-music-control-ui-element-needed-remove-any-references-to-ismusicplaying-togglemusic-or-the-music-button-jsx-from-appshell-tsx-do-not-change-the-dark-mode-toggle-or-any-other-part-of-appshell",
-      "featureTitle": "In AppShell.tsx, remove the music toggle button entirely. Since music now plays unconditionally with no mute option, there is no longer a music control UI element needed. Remove any references to isMusicPlaying, toggleMusic, or the music button JSX from AppShell.tsx. Do not change the dark mode toggle or any other part of AppShell.",
+      "featureId": "feature-in-appshell-tsx-add-a-music-toggle-button-that-1-reads-ismusicplaying-from-appcontext-via-usecontext-2-calls-togglemusic-from-appcontext-on-click-3-displays-filled-music-note-when-ismusicplaying-is-true-and-muted-symbol-when-ismusicplaying-is-false-4-applies-a-subtle-css-pink-glow-pulse-animation-box-shadow-pulsing-from-rgba-244-114-182-0-6-to-transparent-only-when-ismusicplaying-is-true-5-if-appcontext-values-are-undefined-the-button-no-ops-on-click-without-crashing-position-the-button-in-the-top-right-corner-alongside-the-existing-dark-mode-toggle",
+      "featureTitle": "In AppShell.tsx, add a music toggle button that: (1) reads isMusicPlaying from AppContext via useContext, (2) calls toggleMusic from AppContext on click, (3) displays '♪' (filled music note) when isMusicPlaying is true and '🔇' (muted symbol) when isMusicPlaying is false, (4) applies a subtle CSS pink glow pulse animation (box-shadow pulsing from rgba(244,114,182,0.6) to transparent) only when isMusicPlaying is true, (5) if AppContext values are undefined, the button no-ops on click without crashing. Position the button in the top-right corner alongside the existing dark mode toggle.",
       "files": [
         "frontend/src/components/AppShell.tsx"
       ],
@@ -35,7 +35,24 @@
         "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-112"
+        "REQ-114"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-place-a-placeholder-audio-file-note-in-the-codebase-create-the-directory-frontend-public-assets-music-and-add-a-readme-md-inside-it-instructing-place-your-background-music-file-here-as-background-mp3-this-file-is-loaded-by-appcontext-tsx-at-assets-music-background-mp3-this-ensures-the-directory-exists-in-the-build-output-and-the-path-resolves-correctly-in-icp-deployment",
+      "featureTitle": "Place a placeholder audio file note in the codebase: create the directory frontend/public/assets/music/ and add a README.md inside it instructing: 'Place your background music file here as background.mp3. This file is loaded by AppContext.tsx at /assets/music/background.mp3.' This ensures the directory exists in the build output and the path resolves correctly in ICP deployment.",
+      "files": [],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
+      ],
+      "testIds": [
+        "REQ-115"
       ],
       "confidence": "high"
     }

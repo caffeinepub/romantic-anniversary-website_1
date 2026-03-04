@@ -1,18 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-26T19:42:05.548Z",
+  "generatedAt": "2026-02-27T18:10:20.292Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 2,
-    "implemented": 2,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-111",
-        "summary": "In AppContext.tsx, remove all pause/mute logic from the music implementation. The background audio at '/assets/music/background.mp3' must start playing immediately on mount (autoplay attempt), set loop = true, set volume = 1.0. Remove the isMusicPlaying state and toggleMusic handler entirely — there is no longer a play/pause toggle. The audio simply plays on loop for the entire session. If autoplay is blocked by the browser, silently retry on the first user interaction (click/keydown on the document) using a one-time event listener. Wrap all audio operations in try/catch that fail silently. The app must never crash regardless of whether the file exists or playback is blocked.",
+        "id": "REQ-113",
+        "summary": "In AppContext.tsx, implement background music using a module-level Audio variable (outside the component) so it is never recreated on re-renders or context re-mounts. On first provider mount, if the module-level audio variable is null: create new Audio('/assets/music/background.mp3'), set .loop = true, set .volume = 1.0, assign it to the module-level variable, attach an 'error' event listener that sets isMusicPlaying to false silently. Do NOT attempt autoplay — music starts paused. Expose isMusicPlaying (boolean, default false) and toggleMusic (calls audio.play() or audio.pause() based on current state, updates isMusicPlaying accordingly) via context. Wrap every single audio operation in try/catch that fails silently. The app must never crash regardless of whether the file exists or playback is blocked.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/contexts/AppContext.tsx"
@@ -22,14 +22,25 @@
         ]
       },
       {
-        "id": "REQ-112",
-        "summary": "In AppShell.tsx, remove the music toggle button entirely. Since music now plays unconditionally with no mute option, there is no longer a music control UI element needed. Remove any references to isMusicPlaying, toggleMusic, or the music button JSX from AppShell.tsx. Do not change the dark mode toggle or any other part of AppShell.",
+        "id": "REQ-114",
+        "summary": "In AppShell.tsx, add a music toggle button that: (1) reads isMusicPlaying from AppContext via useContext, (2) calls toggleMusic from AppContext on click, (3) displays '♪' (filled music note) when isMusicPlaying is true and '🔇' (muted symbol) when isMusicPlaying is false, (4) applies a subtle CSS pink glow pulse animation (box-shadow pulsing from rgba(244,114,182,0.6) to transparent) only when isMusicPlaying is true, (5) if AppContext values are undefined, the button no-ops on click without crashing. Position the button in the top-right corner alongside the existing dark mode toggle.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/components/AppShell.tsx"
         ],
         "matchedFiles": [
           "frontend/src/components/AppShell.tsx"
+        ]
+      },
+      {
+        "id": "REQ-115",
+        "summary": "Place a placeholder audio file note in the codebase: create the directory frontend/public/assets/music/ and add a README.md inside it instructing: 'Place your background music file here as background.mp3. This file is loaded by AppContext.tsx at /assets/music/background.mp3.' This ensures the directory exists in the build output and the path resolves correctly in ICP deployment.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/public/assets/music/README.md"
+        ],
+        "matchedFiles": [
+          "frontend/public/assets/music/README.md"
         ]
       }
     ]
@@ -39,6 +50,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
+    "frontend/public/assets/music/README.md",
     "frontend/src/components/AppShell.tsx",
     "frontend/src/contexts/AppContext.tsx",
     "project_state.json",

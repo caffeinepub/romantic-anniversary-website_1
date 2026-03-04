@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 55,
+  "projectStateVersion": 57,
   "summary": "Multi-page romantic anniversary website for Sid & Krisha, celebrating a relationship starting 10.03.2025. Single HTML file with cinematic, intimate, emotionally mature design — soft lavender-to-blush-pink gradients, floating light particles, elegant serif typography, smooth emotional transitions. Features: scroll-based timeline (March–March 10 one year), memory gallery with floating hearts and lightbox, childhood/teenage/girl-I-love journey pages with exact personal text, interactive postcard-style love letter envelope addressed 'To My Krisha', heart-card reasons page with infinite-heart ending, couple quiz with glow UI, countdown to March 10 2027, and final page with 'Will you be my forever?' YES/NO interaction where NO moves away and YES triggers heart explosion popup.",
   "architectural_notes": [
     "Single HTML file with JS-driven page navigation (show/hide sections), no server required",
@@ -20,7 +20,7 @@
     "Gallery slot images (gallery-1.jpg through gallery-5.jpg) and HerJourney Stage 1 newborn photos (journey-newborn-1/2/3.jpg) are not displaying — may be missing asset files or incorrect path references in MemoriesGallery.tsx and HerJourney.tsx",
     "Background music still not playing after multiple fix attempts — audio element lifecycle or src path issue persists in production"
   ],
-  "isFixRequest": true,
+  "isFixRequest": false,
   "existing_features": [
     {
       "id": "feature-implement-a-global-app-shell-with-soft-pink-and-lavender-gradient-theme-glassmorphism-card-styling-premium-serif-sans-serif-typography-no-childish-fonts-subtle-floating-hearts-background-animation-smooth-fade-slide-transitions-between-all-pages-a-dark-mode-toggle-and-a-music-play-pause-toggle-all-pages-must-be-mobile-responsive-and-feel-like-chapters-in-an-emotional-digital-love-book",
@@ -763,6 +763,30 @@
       "title": "In AppShell.tsx, remove the music toggle button entirely. Since music now plays unconditionally with no mute option, there is no longer a music control UI element needed. Remove any references to isMusicPlaying, toggleMusic, or the music button JSX from AppShell.tsx. Do not change the dark mode toggle or any other part of AppShell.",
       "reqIds": [
         "REQ-112"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appcontext-tsx-implement-background-music-using-a-module-level-audio-variable-outside-the-component-so-it-is-never-recreated-on-re-renders-or-context-re-mounts-on-first-provider-mount-if-the-module-level-audio-variable-is-null-create-new-audio-assets-music-background-mp3-set-loop-true-set-volume-1-0-assign-it-to-the-module-level-variable-attach-an-error-event-listener-that-sets-ismusicplaying-to-false-silently-do-not-attempt-autoplay-music-starts-paused-expose-ismusicplaying-boolean-default-false-and-togglemusic-calls-audio-play-or-audio-pause-based-on-current-state-updates-ismusicplaying-accordingly-via-context-wrap-every-single-audio-operation-in-try-catch-that-fails-silently-the-app-must-never-crash-regardless-of-whether-the-file-exists-or-playback-is-blocked",
+      "title": "In AppContext.tsx, implement background music using a module-level Audio variable (outside the component) so it is never recreated on re-renders or context re-mounts. On first provider mount, if the module-level audio variable is null: create new Audio('/assets/music/background.mp3'), set .loop = true, set .volume = 1.0, assign it to the module-level variable, attach an 'error' event listener that sets isMusicPlaying to false silently. Do NOT attempt autoplay — music starts paused. Expose isMusicPlaying (boolean, default false) and toggleMusic (calls audio.play() or audio.pause() based on current state, updates isMusicPlaying accordingly) via context. Wrap every single audio operation in try/catch that fails silently. The app must never crash regardless of whether the file exists or playback is blocked.",
+      "reqIds": [
+        "REQ-113"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-in-appshell-tsx-add-a-music-toggle-button-that-1-reads-ismusicplaying-from-appcontext-via-usecontext-2-calls-togglemusic-from-appcontext-on-click-3-displays-filled-music-note-when-ismusicplaying-is-true-and-muted-symbol-when-ismusicplaying-is-false-4-applies-a-subtle-css-pink-glow-pulse-animation-box-shadow-pulsing-from-rgba-244-114-182-0-6-to-transparent-only-when-ismusicplaying-is-true-5-if-appcontext-values-are-undefined-the-button-no-ops-on-click-without-crashing-position-the-button-in-the-top-right-corner-alongside-the-existing-dark-mode-toggle",
+      "title": "In AppShell.tsx, add a music toggle button that: (1) reads isMusicPlaying from AppContext via useContext, (2) calls toggleMusic from AppContext on click, (3) displays '♪' (filled music note) when isMusicPlaying is true and '🔇' (muted symbol) when isMusicPlaying is false, (4) applies a subtle CSS pink glow pulse animation (box-shadow pulsing from rgba(244,114,182,0.6) to transparent) only when isMusicPlaying is true, (5) if AppContext values are undefined, the button no-ops on click without crashing. Position the button in the top-right corner alongside the existing dark mode toggle.",
+      "reqIds": [
+        "REQ-114"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-place-a-placeholder-audio-file-note-in-the-codebase-create-the-directory-frontend-public-assets-music-and-add-a-readme-md-inside-it-instructing-place-your-background-music-file-here-as-background-mp3-this-file-is-loaded-by-appcontext-tsx-at-assets-music-background-mp3-this-ensures-the-directory-exists-in-the-build-output-and-the-path-resolves-correctly-in-icp-deployment",
+      "title": "Place a placeholder audio file note in the codebase: create the directory frontend/public/assets/music/ and add a README.md inside it instructing: 'Place your background music file here as background.mp3. This file is loaded by AppContext.tsx at /assets/music/background.mp3.' This ensures the directory exists in the build output and the path resolves correctly in ICP deployment.",
+      "reqIds": [
+        "REQ-115"
       ],
       "version": 1
     }

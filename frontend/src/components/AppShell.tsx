@@ -7,11 +7,32 @@ interface AppShellProps {
   children: React.ReactNode;
 }
 
+const musicPulseStyle = `
+@keyframes musicGlow {
+  0%   { box-shadow: 0 0 6px 2px rgba(244,114,182,0.7), 0 0 12px 4px rgba(244,114,182,0.4); }
+  50%  { box-shadow: 0 0 14px 6px rgba(244,114,182,0.9), 0 0 28px 10px rgba(244,114,182,0.3); }
+  100% { box-shadow: 0 0 6px 2px rgba(244,114,182,0.7), 0 0 12px 4px rgba(244,114,182,0.4); }
+}
+`;
+
 const AppShell: React.FC<AppShellProps> = ({ children }) => {
-  const { isDarkMode, toggleDarkMode } = useAppContext();
+  const { isDarkMode, toggleDarkMode, isMusicPlaying, toggleMusic } = useAppContext();
+
+  const handleToggleMusic = () => {
+    try {
+      if (typeof toggleMusic === 'function') {
+        toggleMusic();
+      }
+    } catch {
+      // fail silently
+    }
+  };
 
   return (
     <div style={{ position: 'relative', minHeight: '100vh' }}>
+      {/* Inject music glow keyframe animation */}
+      <style>{musicPulseStyle}</style>
+
       {/* Ambient romantic glow overlay — fixed, non-interactive, behind everything */}
       <div
         aria-hidden="true"
@@ -60,8 +81,38 @@ const AppShell: React.FC<AppShellProps> = ({ children }) => {
           zIndex: 50,
           display: 'flex',
           gap: '0.5rem',
+          alignItems: 'center',
         }}
       >
+        {/* Music toggle button */}
+        <button
+          onClick={handleToggleMusic}
+          aria-label={isMusicPlaying ? 'Pause music' : 'Play music'}
+          title={isMusicPlaying ? 'Pause music' : 'Play music'}
+          style={{
+            background: isMusicPlaying
+              ? 'rgba(244,114,182,0.25)'
+              : 'rgba(255,255,255,0.22)',
+            backdropFilter: 'blur(10px)',
+            WebkitBackdropFilter: 'blur(10px)',
+            border: isMusicPlaying
+              ? '1px solid rgba(244,114,182,0.55)'
+              : '1px solid rgba(255,255,255,0.35)',
+            borderRadius: '50%',
+            width: '2.5rem',
+            height: '2.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            cursor: 'pointer',
+            fontSize: '1.1rem',
+            transition: 'background 0.3s ease, border 0.3s ease',
+            animation: isMusicPlaying ? 'musicGlow 1.8s ease-in-out infinite' : 'none',
+          }}
+        >
+          {isMusicPlaying ? '♪' : '🔇'}
+        </button>
+
         {/* Dark mode toggle */}
         <button
           onClick={toggleDarkMode}

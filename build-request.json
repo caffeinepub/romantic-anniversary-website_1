@@ -1,58 +1,83 @@
 {
   "kind": "build_request",
-  "title": "Remove mute option — music plays on by default with no pause/mute capability",
+  "title": "Add background music with play/pause toggle and music note indicator",
   "projectName": "Sid & Krisha Anniversary",
   "priority": "high",
   "requirements": [
     {
-      "id": "REQ-111",
-      "text": "In AppContext.tsx, remove all pause/mute logic from the music implementation. The background audio at '/assets/music/background.mp3' must start playing immediately on mount (autoplay attempt), set loop = true, set volume = 1.0. Remove the isMusicPlaying state and toggleMusic handler entirely — there is no longer a play/pause toggle. The audio simply plays on loop for the entire session. If autoplay is blocked by the browser, silently retry on the first user interaction (click/keydown on the document) using a one-time event listener. Wrap all audio operations in try/catch that fail silently. The app must never crash regardless of whether the file exists or playback is blocked.",
+      "id": "REQ-113",
+      "text": "In AppContext.tsx, implement background music using a module-level Audio variable (outside the component) so it is never recreated on re-renders or context re-mounts. On first provider mount, if the module-level audio variable is null: create new Audio('/assets/music/background.mp3'), set .loop = true, set .volume = 1.0, assign it to the module-level variable, attach an 'error' event listener that sets isMusicPlaying to false silently. Do NOT attempt autoplay — music starts paused. Expose isMusicPlaying (boolean, default false) and toggleMusic (calls audio.play() or audio.pause() based on current state, updates isMusicPlaying accordingly) via context. Wrap every single audio operation in try/catch that fails silently. The app must never crash regardless of whether the file exists or playback is blocked.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "keep the music button on by default dont keep mute option only let the music play do the changes final call im getting irritated"
+          "add music to my wesbite"
         ]
       },
       "acceptanceCriteria": [
-        "Background music begins playing automatically when the app loads without any user interaction.",
-        "There is no isMusicPlaying state or toggleMusic function in AppContext.tsx.",
-        "Audio is set to loop = true and volume = 1.0.",
-        "If autoplay is blocked, a one-time document interaction listener retries audio.play() silently.",
-        "All audio operations are wrapped in try/catch that fail silently — the app never crashes."
+        "Audio object is created at module scope, not inside useState or on every render",
+        "Audio src is exactly '/assets/music/background.mp3'",
+        "Audio has loop = true and volume = 1.0",
+        "isMusicPlaying is false by default on first load (no autoplay)",
+        "toggleMusic() correctly plays or pauses the audio and updates isMusicPlaying state",
+        "An 'error' event listener silently sets isMusicPlaying to false on load failure",
+        "No crash occurs if the audio file is missing or blocked",
+        "Context exposes isMusicPlaying and toggleMusic to consumers"
       ]
     },
     {
-      "id": "REQ-112",
-      "text": "In AppShell.tsx, remove the music toggle button entirely. Since music now plays unconditionally with no mute option, there is no longer a music control UI element needed. Remove any references to isMusicPlaying, toggleMusic, or the music button JSX from AppShell.tsx. Do not change the dark mode toggle or any other part of AppShell.",
+      "id": "REQ-114",
+      "text": "In AppShell.tsx, add a music toggle button that: (1) reads isMusicPlaying from AppContext via useContext, (2) calls toggleMusic from AppContext on click, (3) displays '♪' (filled music note) when isMusicPlaying is true and '🔇' (muted symbol) when isMusicPlaying is false, (4) applies a subtle CSS pink glow pulse animation (box-shadow pulsing from rgba(244,114,182,0.6) to transparent) only when isMusicPlaying is true, (5) if AppContext values are undefined, the button no-ops on click without crashing. Position the button in the top-right corner alongside the existing dark mode toggle.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-1"
         ],
         "quotes": [
-          "dont keep mute option only let the music play"
+          "add music to my wesbite"
         ]
       },
       "acceptanceCriteria": [
-        "The music toggle button is no longer rendered anywhere in AppShell.tsx.",
-        "No references to isMusicPlaying or toggleMusic remain in AppShell.tsx.",
-        "The dark mode toggle and all other AppShell UI elements remain unchanged.",
-        "No TypeScript errors result from removing the music button references."
+        "Music toggle button is visible in the top-right corner of every page",
+        "Button shows '♪' when music is playing and '🔇' when paused",
+        "Clicking the button starts or stops the music",
+        "A pink glow pulse CSS animation is active on the button only while music is playing",
+        "Dark mode toggle and all other AppShell elements are unaffected",
+        "No crash if AppContext is missing or toggleMusic is undefined"
+      ]
+    },
+    {
+      "id": "REQ-115",
+      "text": "Place a placeholder audio file note in the codebase: create the directory frontend/public/assets/music/ and add a README.md inside it instructing: 'Place your background music file here as background.mp3. This file is loaded by AppContext.tsx at /assets/music/background.mp3.' This ensures the directory exists in the build output and the path resolves correctly in ICP deployment.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "add music to my wesbite"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Directory frontend/public/assets/music/ exists in the project",
+        "A README.md is present inside that directory explaining where to place background.mp3",
+        "The audio src path '/assets/music/background.mp3' resolves as a valid static asset URL in the ICP deployment environment when the file is present"
       ]
     }
   ],
   "constraints": [
-    "Do not change the dark mode toggle or any other AppShell UI elements.",
-    "Do not change any page components, quiz logic, navigation, or animations.",
-    "All audio error handling must remain silent — app must never crash due to audio."
+    "Do not change the dark mode toggle or any other part of AppShell beyond adding the music toggle button",
+    "Do not attempt autoplay on mount — music must only play when the user clicks the toggle",
+    "All audio operations must be wrapped in try/catch and fail silently — the app must never crash",
+    "Do not modify immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui"
   ],
   "nonGoals": [
-    "Adding any new music controls or volume sliders.",
-    "Changing the music source file path.",
-    "Modifying any page content, styling, or navigation logic."
+    "Autoplay music without user interaction",
+    "Providing or generating the actual background.mp3 audio file",
+    "Changing any page content, animations, or navigation logic",
+    "Modifying the backend"
   ],
   "imageRequirements": {
     "required": [],
